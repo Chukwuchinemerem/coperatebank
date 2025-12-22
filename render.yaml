@@ -2,7 +2,7 @@ services:
   - type: web
     name: myproject
     env: python
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput"
     startCommand: "gunicorn myproject.wsgi:application"
     envVars:
       - key: DJANGO_SECRET_KEY
@@ -11,4 +11,3 @@ services:
         sync: false
       - key: ALLOWED_HOSTS
         sync: false
-    staticPublishPath: static
