@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ | CO-OPERATIVE FINANCE BANK</title>
+  <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+  <style>
+    body { background: #f3f4f6; color: #0a1f44; }
+    .container { max-width: 700px; margin: 2rem auto; background: #fff; border-radius: 1.2rem; box-shadow: 0 8px 32px rgba(10,31,68,0.13); padding: 2rem; }
+    h1 { color: #0a1f44; font-size: 2.2rem; margin-bottom: 1.2rem; }
+    .faq-item { margin-bottom: 1.5rem; }
+    .question { font-weight: bold; color: #102a5c; }
+    .answer { margin-top: 0.3rem; color: #0a1f44; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Frequently Asked Questions</h1>
+    <div class="faq-item">
+      <div class="question">How do I open an account?</div>
+      <div class="answer">Click on Register and fill in your details. You’ll receive a confirmation email to activate your account.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Is my information secure?</div>
+      <div class="answer">Yes, we use advanced encryption and security protocols to protect your data.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">How can I reset my password?</div>
+      <div class="answer">Click on ‘Forgot Password’ on the login page and follow the instructions.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">What services do you offer?</div>
+      <div class="answer">We offer savings accounts, debit/credit cards, online banking, and investment options.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">How do I contact support?</div>
+      <div class="answer">Email us at <a href="mailto:support@cooperativefinancebank.com">support@cooperativefinancebank.com</a> or use our contact form.</div>
+    </div>
+  </div>
+</body>
+</html>

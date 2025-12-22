@@ -1,0 +1,4 @@
+- [x] Project folders created
+- [ ] Scaffold Django project files
+- [ ] Add app templates and static files
+- [ ] Finalize for Render hosting

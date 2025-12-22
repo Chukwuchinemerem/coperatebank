@@ -1,0 +1,764 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+          <!-- Social Media Preview Meta Tags -->
+          <meta property="og:title" content="CO-OPERATIVE FINANCE BANK" />
+          <meta property="og:description" content="The Better Way To Save & Invest. Secure digital banking for everyone." />
+          <meta property="og:image" content="https://yourdomain.com/static/core/images/banker.jpg" />
+          <meta property="og:url" content="https://yourdomain.com/" />
+          <meta property="og:type" content="website" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="CO-OPERATIVE FINANCE BANK" />
+          <meta name="twitter:description" content="The Better Way To Save & Invest. Secure digital banking for everyone." />
+          <meta name="twitter:image" content="https://yourdomain.com/static/core/images/banker.jpg" />
+        <style>
+          /* Sleek toggle menu styles */
+          .bank-menu-dropdown {
+            position: absolute;
+            right: 1.2rem;
+            top: 3.5rem;
+            z-index: 50;
+            min-width: 11rem;
+            background: #fff;
+            border-radius: 1.1rem;
+            box-shadow: 0 8px 32px rgba(10,31,68,0.13);
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 0.2rem;
+            animation: fadeInBankMenu 0.22s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+          }
+          .bank-menu-link {
+            display: block;
+            padding: 0.95rem 1.5rem;
+            color: #0a1f44;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border-radius: 0.7rem;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            margin: 0 0.2rem;
+          }
+          .bank-menu-link:hover {
+            background: #e3e8f7;
+            color: #102a5c;
+          }
+          .bank-menu-toggle {
+            font-size: 2rem;
+            color: #fff;
+            background: #0a1f44;
+            border: none;
+            border-radius: 0.7rem;
+            padding: 0.1rem 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(10,31,68,0.10);
+            transition: background 0.18s;
+          }
+          .bank-menu-toggle:active, .bank-menu-toggle:focus {
+            background: #102a5c;
+          }
+          @keyframes fadeInBankMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @media (max-width: 600px) {
+            .bank-menu-dropdown {
+              right: 0.5rem;
+              top: 3.2rem;
+              min-width: 90vw;
+              padding: 0.3rem 0.1rem;
+            }
+            .bank-menu-link {
+              padding: 0.8rem 1rem;
+              font-size: 1rem;
+            }
+          }
+        </style>
+      <style>
+        /* Custom keyframes for image fade in/out */
+        @keyframes homepageFade {
+          0%, 100% { opacity: 0; z-index: 0; }
+          10%, 90% { opacity: 1; z-index: 10; }
+        }
+        .homepage-fade {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 12px;
+          opacity: 0;
+          z-index: 0;
+          animation: homepageFade 12s infinite;
+          transition: opacity 0.5s;
+        }
+        .homepage-fade-2 {
+          animation-delay: 4s;
+        }
+        .homepage-fade-3 {
+          animation-delay: 8s;
+        }
+      </style>
+      <style>
+        /* ...existing styles... */
+        .homepage-badge-group {
+          position: absolute;
+          left: 1.2rem;
+          bottom: 1.2rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          z-index: 20;
+        }
+        .homepage-badge {
+          background: #0a1f44;
+          color: #fff;
+          border-radius: 1rem;
+          padding: 0.35rem 1.1rem;
+          font-size: 0.95rem;
+          font-weight: 600;
+          box-shadow: 0 2px 8px rgba(10,31,68,0.10);
+          display: inline-block;
+          letter-spacing: 0.5px;
+          opacity: 0.95;
+        }
+        .homepage-badge-group { pointer-events: none; }
+        .homepage-fade { pointer-events: none; }
+        @media (max-width: 600px) {
+          .homepage-badge-group {
+            left: 0.5rem;
+            bottom: 0.5rem;
+            gap: 0.35rem;
+          }
+          .homepage-badge {
+            font-size: 0.82rem;
+            padding: 0.22rem 0.7rem;
+          }
+        }
+      </style>
+    <style>
+      /* Responsive homepage images */
+      .homepage-image {
+        width: 100%;
+        height: 100%;
+        max-width: 100vw;
+        max-height: 100%;
+        object-fit: cover;
+        display: block;
+        /* border-radius removed for straight edges */
+      }
+      @media (min-width: 768px) {
+        .homepage-image {
+          max-width: 420px;
+          max-height: 420px;
+          height: 420px;
+          /* border-radius removed for straight edges */
+        }
+      }
+      @media (max-width: 600px) {
+        .homepage-image {
+          max-width: 100vw;
+          height: 220px;
+          /* border-radius removed for straight edges */
+        }
+      }
+    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CO-OPERATIVE FINANCE BANK | WE ARE YOU</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bankblue: '#0a1f44',
+            bankblueLight: '#102a5c'
+          },
+          keyframes: {
+            slideFade: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '10%': { opacity: '1', transform: 'translateY(0)' },
+              '30%': { opacity: '1' },
+              '40%': { opacity: '0', transform: 'translateY(-20px)' },
+              '100%': { opacity: '0' }
+            },
+            marquee: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(-100%)' }
+            }
+          },
+          animation: {
+            slideFade: 'slideFade 12s infinite',
+            marquee: 'marquee 25s linear infinite'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-200 flex justify-center">
+
+<!-- PHONE CONTAINER -->
+<div class="w-full max-w-md bg-white min-h-screen shadow-xl">
+  <!-- ================= HEADER ================= -->
+  <header class="bg-gradient-to-r from-bankblue to-bankblueLight text-white">
+    <div class="px-4 py-4 flex justify-between items-center">
+      <!-- Logo Left -->
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
+          <div class="bg-white shadow-lg px-2 py-1 flex items-center justify-center border border-gray-200 rounded-md">
+            <img src="{% static 'core/images/citizen-logo.png' %}" class="h-12 w-auto object-contain" alt="Logo">
+          </div>
+          <span id="coop-bank-title" class="font-bold text-base md:text-lg tracking-wider text-white drop-shadow-sm" style="letter-spacing:1.2px;"></span>
+        </div>
+      </div>
+      <!-- Sleek Toggle Right -->
+      <div class="relative">
+        <button class="bank-menu-toggle" id="bankMenuBtn" aria-label="Open menu" onclick="document.getElementById('bankMenuDropdown').classList.toggle('hidden')">☰</button>
+        <div id="bankMenuDropdown" class="bank-menu-dropdown hidden">
+          <a href="/" class="bank-menu-link">Home</a>
+          <a href="/about" class="bank-menu-link">About Us</a>
+          <a href="/login" class="bank-menu-link">Sign In</a>
+          <a href="/register" class="bank-menu-link">Register</a>
+          <a href="/faq" class="bank-menu-link">FAQ</a>
+          <a href="/privacy" class="bank-menu-link">Privacy Policy</a>
+          <a href="/terms" class="bank-menu-link">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="menu" class="hidden px-4 pb-4 text-sm bg-bankblueLight">
+      <!-- Sleek menu replaced by new dropdown above -->
+    </div>
+  </header>
+
+  <!-- ================= CRYPTO TICKER ================= -->
+  <section class="bg-slate-50 border-b overflow-hidden">
+    <div id="crypto-slider" class="flex items-center px-2 py-2 gap-4 w-full overflow-x-auto no-scrollbar" style="white-space:nowrap;">
+      <!-- Crypto prices will be injected here -->
+    </div>
+  </section>
+
+  <!-- ================= HERO PHONE ROTATOR ================= -->
+  <section class="pt-0 pb-8 mt-0 flex flex-col items-center bg-gradient-to-b from-white to-slate-100">
+    <div class="relative w-full max-w-lg aspect-[4/3] drop-shadow-2xl flex items-center justify-center">
+      <img src="{% static 'core/images/imgbank.jpg' %}"
+        class="homepage-fade" style="animation-delay: 0s;" />
+      <img src="{% static 'core/images/Beta-slider.jpg' %}"
+        class="homepage-fade homepage-fade-2" style="animation-delay: 3s;" />
+      <img src="{% static 'core/images/internet-banking-online-payment-technology-concept.jpg' %}"
+        class="homepage-fade homepage-fade-3" style="animation-delay: 6s;" />
+      <div class="homepage-badge-group" id="homepage-badges">
+        <span class="homepage-badge">Business Checking</span>
+        <span class="homepage-badge">Savings Account</span>
+        <span class="homepage-badge">Credit Cards</span>
+        <span class="homepage-badge">Home Loans</span>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <!-- Section Title -->
+    <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+      Get Started with Your Account
+    </h2>
+    <p class="text-gray-600 mb-10">
+      Securely access your account or create a new one to start banking with confidence.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+      <!-- Sign In Button -->
+      <a href="/login" class="flex-1 min-w-[120px] px-8 py-3 bg-blue-900 text-white font-semibold rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl text-center">
+        Sign In
+      </a>
+      <!-- Register Button -->
+      <a href="/register" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center">
+        Register
+      </a>
+    </div>
+  </div>
+</section>
+<!-- FEATURES SECTION -->
+<section class="w-full bg-[#0b2d4d]">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+
+    <!-- Box 1 -->
+    <div class="px-6 py-10 text-center text-white border-b md:border-r border-white/20">
+      <div class="flex justify-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"/>
+            <path d="M20 12a8 8 0 10-16 0 8 8 0 0016 0z"/>
+          </svg>
+        </div>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Better Savings</h3>
+      <p class="text-sm text-white/80">
+        What is the best savings account to save money? Our easy savings account gives you access.
+      </p>
+    </div>
+
+    <!-- Box 2 -->
+    <div class="px-6 py-10 text-center text-white border-b lg:border-r border-white/20">
+      <div class="flex justify-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 17v-2m0-4V7"/>
+            <path d="M5 11h14v10H5z"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+        </div>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Fully Encrypted</h3>
+      <p class="text-sm text-white/80">
+        Fully encrypted virtual wallet and mobile banking apps for easy transactions.
+      </p>
+    </div>
+
+    <!-- Box 3 -->
+    <div class="px-6 py-10 text-center text-white border-b md:border-r border-white/20">
+      <div class="flex justify-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+        </div>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Credit/ Debit Cards</h3>
+      <p class="text-sm text-white/80">
+        With your debit cards, you have complete access to your money from any at anytime.
+      </p>
+    </div>
+
+    <!-- Box 4 -->
+    <div class="px-6 py-10 text-center text-white">
+      <div class="flex justify-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Secure and Easy</h3>
+      <p class="text-sm text-white/80">
+        Easy online and mobile banking experience, secure for all our digital platform.
+      </p>
+    </div>
+
+  </div>
+<!-- ATM & Card Usage Section -->
+<section class="bg-blue-900 py-20 relative overflow-hidden flex flex-col items-center justify-center">
+  <div class="w-full flex flex-col items-center justify-center px-0 text-center relative z-10">
+    <!-- Heading -->
+    <h1 class="text-4xl md:text-5xl font-bold text-yellow-400 mb-6">
+      Access Your Funds Anywhere, Anytime
+    </h1>
+
+    <!-- Description -->
+    <p class="text-white text-lg md:text-xl mb-12">
+      Our cards work seamlessly at ATMs, POS terminals, and for online payments. Enjoy secure, fast, and convenient transactions worldwide with just a tap or swipe.
+    </p>
+
+    <!-- Images Container -->
+     <section class="pt-0 pb-8 mt-0 flex flex-col items-center w-full justify-center">
+       <div class="relative w-full max-w-full aspect-[4/3] drop-shadow-2xl flex items-center justify-center mx-auto" style="width:100vw; max-width:100vw;">
+         <!-- Image 1 -->
+         <img src="{% static 'core/images/pos-card.jpg' %}"
+           class="homepage-fade" style="animation-delay: 0s; border-radius:0; width:100vw; max-width:100vw;" />
+         <!-- Image 2 -->
+         <img src="{% static 'core/images/african-american.jpg' %}"
+           class="homepage-fade homepage-fade-2" style="animation-delay: 3s; border-radius:0; width:100vw; max-width:100vw;" />
+         <!-- Image 3 -->
+         <img src="{% static 'core/images/easy-wireless.jpg' %}"
+           class="homepage-fade homepage-fade-3" style="animation-delay: 6s; border-radius:0; width:100vw; max-width:100vw;" />
+         <div class="homepage-badge-group" id="homepage-badges"></div>
+       </div>
+    </section>
+  </div>
+
+  <!-- Background Accent Circles -->
+  <div class="absolute -top-20 -right-20 w-72 h-72 bg-yellow-400 rounded-full opacity-20"></div>
+  <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-yellow-400 rounded-full opacity-20"></div>
+</section>
+
+<!-- Slideshow CSS (add this in your main CSS if not already) -->
+<style>
+.homepage-fade {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* border-radius removed for straight edges */
+  opacity: 0;
+  animation: fadeSlideshow 9s infinite;
+}
+
+.homepage-fade-2 {
+  animation-delay: 3s;
+}
+
+.homepage-fade-3 {
+  animation-delay: 6s;
+}
+
+@keyframes fadeSlideshow {
+  0%, 33.33% { opacity: 1; }
+  33.34%, 100% { opacity: 0; }
+}
+</style>
+
+<!-- How the Bank Works Section -->
+<section class="bg-slate-50 py-20">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <!-- Main Heading -->
+    <h1 class="text-4xl md:text-5xl font-bold text-blue-900 mb-6 animate-fadeIn">
+      The Better Way To Save & Invest Online Banking
+    </h1>
+    <!-- Description -->
+    <p class="text-gray-700 text-lg md:text-xl mb-12 animate-fadeIn delay-200">
+      Carry your credit and debit card information securely in a digital wallet on your smartphone, smartwatch, or tablet. Make payments in stores, apps, or online without using your physical card.
+    </p>
+
+    <!-- Highlights Section -->
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Cards that work all across the world</h3>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp delay-100">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Highest Returns on your investments</h3>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp delay-200">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">No ATM fees. No minimum balance</h3>
+      </div>
+    </div>
+
+    <!-- Our Banking Services -->
+    <h2 class="text-3xl font-semibold text-blue-900 mb-8 animate-fadeIn delay-300">Our Banking Services</h2>
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <!-- Service Card 1 -->
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Treasury Management</h3>
+        <p class="text-gray-700 mb-4">Innovative treasury management solutions help you accelerate receivables, optimize payables & maximize performance.</p>
+        <a href="#" class="text-yellow-400 font-semibold hover:underline">Learn More</a>
+      </div>
+      <!-- Service Card 2 -->
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp delay-100">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Institutional Asset Management</h3>
+        <p class="text-gray-700 mb-4">Solutions for retirement planning, endowments, foundations, and other institutional investors and more.</p>
+        <a href="#" class="text-yellow-400 font-semibold hover:underline">Learn More</a>
+      </div>
+      <!-- Service Card 3 -->
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp delay-200">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Advisory Businesses</h3>
+        <p class="text-gray-700 mb-4">Discover and execute the right strategic options through Citizens First Chartered Bank business strategic advisory.</p>
+        <a href="#" class="text-yellow-400 font-semibold hover:underline">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Financial Literacy -->
+    <div class="flex flex-col md:flex-row items-center gap-12 mb-16">
+      <img src="{% static 'core/images/best-money.jpg' %}" class="w-full md:w-[600px] rounded-xl shadow-2xl animate-slideLeft" style="max-width:100vw; width:100vw;" alt="Financial Literacy">
+      <div class="md:w-1/2 text-left">
+        <h3 class="text-2xl font-bold text-blue-900 mb-4 animate-fadeIn">Financial Literacy, What It Is and Why It’s Important</h3>
+        <p class="text-gray-700 mb-2 animate-fadeIn delay-100">The ability to identify market-entry strategies and understand financial planning.</p>
+        <p class="text-gray-700 animate-fadeIn delay-200">Direct exporting, investments, and tools to ensure growth and maximize expected sales.</p>
+      </div>
+    </div>
+
+    <!-- Guidance To Help You Reach Your Goals -->
+    <h2 class="text-3xl font-semibold text-blue-900 mb-8 animate-fadeIn">Guidance To Help You Reach Your Goals</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Digital Wallets</h3>
+        <p class="text-gray-700 mb-4">Access any ATM by adding your Citizens First Chartered Bank Debit or SmartPay Card to your digital wallet.</p>
+        <a href="#" class="text-yellow-400 font-semibold hover:underline">Learn More</a>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp delay-100">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Introducing VirtualWealth</h3>
+        <p class="text-gray-700 mb-4">Advances in technology make saving and investing more convenient. A simple digital investing service.</p>
+        <a href="#" class="text-yellow-400 font-semibold hover:underline">Learn More</a>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transform transition-all duration-300 animate-slideUp delay-200">
+        <h3 class="text-blue-900 font-bold text-xl mb-2">Looking At The Big Picture</h3>
+        <p class="text-gray-700 mb-4">Financial planning isn’t just about investments—it’s about making informed decisions for your future.</p>
+        <a href="#" class="text-yellow-400 font-semibold hover:underline">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tailwind Animations -->
+<style>
+  .animate-fadeIn {
+    animation: fadeIn 1s ease forwards;
+  }
+  .animate-slideUp {
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 1s ease forwards;
+  }
+  .animate-slideLeft {
+    transform: translateX(-20px);
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+  }
+  .delay-100 {
+    animation-delay: 0.2s;
+  }
+  .delay-200 {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes slideLeft {
+    to { transform: translateX(0); opacity: 1; }
+  }
+</style>
+
+
+
+
+  
+<!-- Smartsupp Live Chat script -->
+<script type="text/javascript">
+// --- Dynamic CO-OPERATIVE BANK text animation ---
+function animateBankTitle(text, elementId, speed = 80) {
+  const el = document.getElementById(elementId);
+  el.textContent = '';
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+    // Badges always visible on all images now
+
+window.addEventListener('DOMContentLoaded', () => {
+  animateBankTitle('CO-OPERATIVE FINANCE BANK', 'coop-bank-title', 90);
+});
+// --- Exchange-style Crypto Slider ---
+const cryptoList = [
+  'bitcoin', 'ethereum', 'binancecoin', 'solana', 'dogecoin', 'cardano', 'ripple', 'polkadot', 'tron', 'litecoin', 'avalanche-2', 'chainlink', 'uniswap', 'stellar', 'monero', 'aptos', 'near', 'cosmos', 'the-graph', 'algorand', 'vechain', 'tezos', 'fantom', 'maker', 'aave', 'elrond-erd-2', 'filecoin', 'flow', 'eos', 'theta-token', 'chiliz', 'dash', 'zcash', 'iota', 'neo', 'waves', 'kusama', 'enjincoin', 'decentraland', 'helium', 'celo', 'curve-dao-token', 'convex-finance', 'pancakeswap', '1inch', 'sushi', 'compound', 'ren', 'ankr', 'arweave', 'quant-network', 'rocket-pool', 'gala', 'mina-protocol', 'injective-protocol', 'ocean-protocol', 'terra-luna', 'terrausd', 'tether', 'usd-coin', 'binance-usd', 'dai', 'true-usd', 'frax', 'pax-dollar', 'gemini-dollar', 'husd', 'fei-usd', 'usdd', 'usdp', 'usdn', 'usdx', 'gusd', 'busd', 'usdc', 'usdt'
+];
+
+async function loadCryptoSlider() {
+  const ids = cryptoList.slice(0, 20).join(','); // Show 20 coins for performance
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const slider = document.getElementById('crypto-slider');
+    slider.innerHTML = data.map(coin => {
+      const priceChange = coin.price_change_percentage_24h;
+      const changeColor = priceChange >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+      return `
+        <div class="flex flex-col items-center justify-center min-w-[110px] max-w-[120px] mx-2 bg-white rounded-2xl shadow-lg border border-gray-200 py-3 px-3 transition-transform duration-200 hover:scale-105" style="white-space:normal; height:80px;">
+          <div class="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1.5 shadow-sm">
+            <img src="${coin.image}" alt="${coin.name}" class="w-6 h-6" />
+          </div>
+          <span class="font-bold text-xs text-gray-800 mb-0.5 text-center">${coin.name}</span>
+          <span class="text-xs font-semibold text-gray-700 mb-0.5 text-center">$${coin.current_price.toLocaleString()}</span>
+          <span class="${changeColor} text-xs font-bold px-2 py-0.5 rounded-full mt-0.5">${priceChange ? priceChange.toFixed(2) : '0.00'}%</span>
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    document.getElementById('crypto-slider').innerHTML = '<span class="text-red-600">Failed to load prices</span>';
+  }
+}
+
+// Auto-slide effect
+let scrollPos = 0;
+function autoSlideCrypto() {
+  const slider = document.getElementById('crypto-slider');
+  if (!slider) return;
+  scrollPos += 2;
+  if (scrollPos > slider.scrollWidth - slider.clientWidth) scrollPos = 0;
+  slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadCryptoSlider();
+  setInterval(loadCryptoSlider, 60000);
+  setInterval(autoSlideCrypto, 25);
+});
+
+// Hide scrollbar for slider
+const style = document.createElement('style');
+style.innerHTML = `.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`;
+document.head.appendChild(style);
+
+// Smartsupp Live Chat script
+var _smartsupp = _smartsupp || {};
+_smartsupp.key = '7a25cc060d5d2575411c7051bae4cf443c5b6134';
+window.smartsupp||(function(d) {
+	var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+	s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+	c.type='text/javascript';c.charset='utf-8';c.async=true;
+	c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+})(document);
+</script>
+
+<!-- Footer -->
+<footer class="bg-blue-950 text-slate-300 pt-20 pb-10 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Top Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+
+      <!-- Brand / About -->
+      <div class="animate-fadeIn">
+        <h3 class="text-2xl font-bold text-yellow-400 mb-4">
+          Co-operative Finance Bank
+        </h3>
+        <p class="text-sm leading-relaxed text-slate-400">
+          A modern financial institution providing secure banking, digital payments,
+          investment solutions, and global financial access for individuals and businesses.
+        </p>
+
+        <!-- App Store Badges -->
+        <div class="flex gap-4 mt-6">
+          <!-- Play Store -->
+          <a href="#" class="group transform transition hover:scale-105">
+            <svg class="w-36 h-12" viewBox="0 0 180 60" fill="none">
+              <rect width="180" height="60" rx="12" fill="#111827"/>
+              <polygon points="30,15 50,30 30,45" fill="#34D399"/>
+              <text x="70" y="25" fill="#FACC15" font-size="12">GET IT ON</text>
+              <text x="70" y="42" fill="white" font-size="18" font-weight="bold">Google Play</text>
+            </svg>
+          </a>
+
+          <!-- Apple Store -->
+          <a href="#" class="group transform transition hover:scale-105">
+            <svg class="w-36 h-12" viewBox="0 0 180 60" fill="none">
+              <rect width="180" height="60" rx="12" fill="#020617"/>
+              <path d="M40 20c3-4 7-6 11-6-1 4-3 7-6 9-3 2-6 3-9 3 0-2 2-4 4-6z" fill="white"/>
+              <text x="70" y="25" fill="#FACC15" font-size="12">Download on the</text>
+              <text x="70" y="42" fill="white" font-size="18" font-weight="bold">App Store</text>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Popular Links -->
+      <div class="animate-slideUp">
+        <h4 class="text-lg font-semibold text-white mb-4">Popular Links</h4>
+        <ul class="space-y-3">
+          <li><a href="/register" class="footer-link">Open Account</a></li>
+          <li><a href="/login" class="footer-link">Login</a></li>
+          <li><a href="/" class="footer-link">Digital Banking</a></li>
+          <li><a href="/" class="footer-link">Cards & Payments</a></li>
+          <li><a href="/" class="footer-link">Investments</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="animate-slideUp delay-100">
+        <h4 class="text-lg font-semibold text-white mb-4">Support</h4>
+        <ul class="space-y-3">
+          <li><a href="/faq" class="footer-link">FAQs</a></li>
+          <li><a href="/privacy" class="footer-link">Privacy Policy</a></li>
+          <li><a href="/terms" class="footer-link">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="animate-slideUp delay-200">
+        <h4 class="text-lg font-semibold text-white mb-4">Contact Us</h4>
+        <ul class="space-y-4 text-sm">
+          <li>
+            📞 <span class="text-slate-400">Company Phone:</span><br>
+            <span class="text-white font-medium">+1 (501) 237-557</span>
+          </li>
+          <li>
+            📍 <span class="text-slate-400">Head Office:</span><br>
+            <span class="text-white font-medium">
+              3511 Washington st suite 100,<br>
+              Jamaica plain, Ma 22012 United States
+            </span>
+          </li>
+          <li>
+            ✉️ <span class="text-slate-400">Email:</span><br>
+            <span class="text-white font-medium">support@cooperativebank.com</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-blue-800 mb-8"></div>
+
+    <!-- Bottom Footer -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
+      <p>
+        © <span class="text-white">2025 Co-operative Finance Bank</span>. All rights reserved.
+      </p>
+      <p>
+        Regulated • Secure • Trusted Worldwide
+      </p>
+    </div>
+  </div>
+
+  <!-- Decorative Background Elements -->
+  <div class="absolute -top-24 -right-24 w-72 h-72 bg-yellow-400/10 rounded-full"></div>
+  <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-800/20 rounded-full"></div>
+</footer>
+
+<!-- Footer Utilities -->
+<style>
+  .footer-link {
+    @apply text-slate-400 hover:text-yellow-400 transition duration-300 ease-in-out;
+  }
+
+  .animate-fadeIn {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+
+  .animate-slideUp {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 1s forwards;
+  }
+
+  .delay-100 {
+    animation-delay: .2s;
+  }
+
+  .delay-200 {
+    animation-delay: .4s;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+</html>

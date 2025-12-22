@@ -1,0 +1,178 @@
+{% block content %}
+<div class="register-container">
+    <h2 class="register-title">CO-OPERATIVE FINANCE BANK</h2>
+    <form method="post" enctype="multipart/form-data" class="register-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" name="firstname" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="middlename">Middle Name</label>
+            <input type="text" id="middlename" name="middlename" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" name="lastname" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="address">House Address</label>
+            <input type="text" id="address" name="address" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="sex">Sex</label>
+            <select id="sex" name="sex" class="form-control" required>
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" name="country" class="form-control" required>
+                <option value="">Select Country</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Ghana">Ghana</option>
+                <option value="South Africa">South Africa</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Canada">Canada</option>
+                <option value="India">India</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+                <option value="China">China</option>
+                <option value="Brazil">Brazil</option>
+                <option value="Australia">Australia</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Egypt">Egypt</option>
+                <option value="Japan">Japan</option>
+                <option value="Italy">Italy</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Russia">Russia</option>
+                <option value="Mexico">Mexico</option>
+                <option value="South Korea">South Korea</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Spain">Spain</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Poland">Poland</option>
+                <option value="Norway">Norway</option>
+                <option value="UAE">UAE</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Algeria">Algeria</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="occupation">Occupation</label>
+            <input type="text" id="occupation" name="occupation" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="passport">Passport Photograph</label>
+            <input type="file" id="passport" name="passport" class="form-control" accept="image/*" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn-primary btn-block">Register</button>
+    </form>
+    <div class="register-login-link">
+        <p>Already have an account?<br>
+            <a href="/login/" class="login-link">Sign in here</a>
+        </p>
+    </div>
+</div>
+<style>
+.register-login-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 15px;
+}
+.register-login-link .login-link {
+    color: #2154cf;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.register-login-link .login-link:hover {
+    color: #183a8a;
+    text-decoration: underline;
+}
+.register-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px 40px 25px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+.register-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2154cf;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.register-form .form-group {
+    margin-bottom: 18px;
+}
+.register-form label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+    color: #333;
+}
+.register-form .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #f9f9f9;
+    transition: border-color 0.2s;
+}
+.register-form .form-control:focus {
+    border-color: #2154cf;
+    outline: none;
+}
+.btn-primary.btn-block {
+    width: 100%;
+    padding: 12px;
+    background: #2154cf;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+.btn-primary.btn-block:hover {
+    background: #183a8a;
+}
+</style>
+{% endblock %}

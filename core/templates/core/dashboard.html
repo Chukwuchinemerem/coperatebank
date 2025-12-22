@@ -1,0 +1,288 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Co-operative Finance Bank</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS (if any) -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+
+<body class="bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
+
+<div class="min-h-screen flex bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="w-64 bg-blue-950 text-slate-200 fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40">
+    <div class="p-6 text-xl font-bold text-yellow-400">
+      Co-operative Finance Bank
+    </div>
+
+    <nav class="space-y-2 px-4">
+      <a href="#" class="sidebar-link" onclick="showSection('dashboard');closeSidebarOnMobile()">Dashboard</a>
+      <a href="#" class="sidebar-link" onclick="showSection('accounts');closeSidebarOnMobile()">Accounts</a>
+      <a href="#" class="sidebar-link" onclick="showSection('transfers');closeSidebarOnMobile()">Transfers</a>
+      <a href="#" class="sidebar-link" onclick="showSection('cards');closeSidebarOnMobile()">Cards</a>
+      <a href="#" class="sidebar-link" onclick="showSection('transactions');closeSidebarOnMobile()">Transactions</a>
+      <a href="#" class="sidebar-link" onclick="showSection('security');closeSidebarOnMobile()">Security</a>
+      <a href="#" class="sidebar-link" onclick="showSection('settings');closeSidebarOnMobile()">Settings</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="flex-1 md:ml-64">
+
+    <!-- TOP NAV -->
+    <header class="bg-white dark:bg-slate-800 shadow flex justify-between items-center px-6 py-4">
+      <button onclick="toggleSidebar()" class="md:hidden text-2xl">☰</button>
+
+      <div class="flex items-center gap-4">
+        <!-- Dark Mode Toggle -->
+        <button onclick="toggleTheme()" class="bg-slate-200 dark:bg-slate-700 px-3 py-1 rounded-lg text-sm">
+          🌙 / ☀️
+        </button>
+
+        <span class="relative">
+          🔔
+          <span class="absolute -top-1 -right-1 bg-yellow-400 text-xs px-1 rounded-full">!</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- DASHBOARD BODY -->
+    <main class="p-6 space-y-8">
+
+      <!-- DASHBOARD SECTION -->
+      <div id="section-dashboard">
+        <!-- BALANCE CARD -->
+        <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white rounded-2xl p-8 shadow-xl">
+          <h2 class="text-yellow-300 text-sm uppercase">Available Balance</h2>
+          <div class="flex items-center gap-4 mt-2">
+            {% if profile %}
+            <span id="balance" class="text-4xl font-bold">${{ profile.balance|floatformat:2 }}</span>
+            {% if messages %}
+              {% for message in messages %}
+                {% if 'Transferred' in message %}
+                  <span class="ml-4 text-green-400 text-2xl">&#10003; Transfer successful!</span>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+            {% else %}
+            <span id="balance" class="text-4xl font-bold text-red-400">No profile found</span>
+            {% endif %}
+          </div>
+          <div class="mt-4 flex items-center gap-3">
+            <span id="acct" class="tracking-widest">•••••••• 8921</span>
+            <button onclick="toggleAccount()">👁</button>
+          </div>
+        </div>
+        <!-- ACTION BUTTONS -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <button onclick="openSend()" class="action-card">
+            Send Money
+          </button>
+          <button class="action-card bg-yellow-400 text-blue-900 hover:bg-yellow-300">
+            Receive Money
+          </button>
+        </div>
+      </div>
+
+      <!-- TRANSACTIONS SECTION -->
+      <div id="section-transactions" style="display:none;">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-semibold text-lg">Transactions</h3>
+            <input id="search" onkeyup="filterTx()" placeholder="Search..." class="border px-3 py-2 rounded-lg dark:bg-slate-700">
+          </div>
+          <ul id="txList" class="space-y-3 text-sm">
+            <!-- Example transactions, replace with Django context if needed -->
+            <li class="tx-item">ATM Withdrawal - $200</li>
+            <li class="tx-item">Salary Credit +$3,000</li>
+            <li class="tx-item">Online Purchase - $120</li>
+            <li class="tx-item">Transfer Received +$800</li>
+          </ul>
+          <div id="noTxMsg" class="text-center text-slate-400 mt-6 hidden">No transactions yet.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- SEND MONEY MODAL -->
+<div id="sendModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white dark:bg-slate-800 p-6 rounded-xl w-96 animate-slideUp">
+    <h3 class="text-lg font-bold mb-4">Send Money</h3>
+    <form method="post" action="" id="sendMoneyForm">
+      {% csrf_token %}
+      <input name="recipient_account" placeholder="Recipient Account" class="input" required>
+      <input name="amount" type="number" step="0.01" placeholder="Amount ($)" class="input" required>
+      <input name="description" placeholder="Description" class="input">
+      <input name="transfer_pin" type="password" placeholder="Transfer PIN" class="input" required>
+      <div class="flex gap-3 mt-4">
+        <button type="button" onclick="closeSend()" class="w-1/2 btn-secondary">Cancel</button>
+        <button type="submit" class="w-1/2 btn-primary">Send</button>
+      </div>
+    </form>
+    <div id="transferSuccess" style="display:none;" class="flex items-center justify-center mt-4 text-green-600 font-bold">
+      <span style="font-size:2rem;">&#10003;</span> Transfer successful!
+    </div>
+    {% if messages %}
+      {% for message in messages %}
+        {% if 'Transferred' in message %}
+          <script>
+            document.getElementById('transferSuccess').style.display = 'flex';
+            setTimeout(function() {
+              closeSend();
+              document.getElementById('sendMoneyForm').reset();
+              document.getElementById('transferSuccess').style.display = 'none';
+            }, 2000);
+          </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+<!-- KYC POPUP -->
+<div id="kyc" class="fixed bottom-6 right-6 bg-white dark:bg-slate-800 p-5 rounded-xl shadow-xl hidden animate-slideUp">
+  <h4 class="font-bold mb-1">Complete KYC</h4>
+  <p class="text-sm mb-3">Increase your transfer limits.</p>
+  <button class="btn-primary w-full">Verify Now</button>
+</div>
+
+<!-- JS -->
+<script>
+function showSection(section) {
+  // Hide all sections
+  document.getElementById('section-dashboard').style.display = 'none';
+  document.getElementById('section-transactions').style.display = 'none';
+  // Show selected
+  if (section === 'dashboard') {
+    document.getElementById('section-dashboard').style.display = '';
+  } else if (section === 'transactions') {
+    document.getElementById('section-transactions').style.display = '';
+    // Check if there are transactions
+    var txList = document.getElementById('txList');
+    var noTxMsg = document.getElementById('noTxMsg');
+    if (txList && txList.children.length === 0) {
+      noTxMsg.classList.remove('hidden');
+    } else {
+      noTxMsg.classList.add('hidden');
+    }
+  }
+}
+let showAcc = false;
+
+function toggleAccount() {
+  const acc = document.getElementById("acct");
+  showAcc = !showAcc;
+  acc.textContent = showAcc ? "9876 5432 1098 8921" : "•••••••• 8921";
+}
+
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("-translate-x-full");
+}
+
+function closeSidebarOnMobile() {
+  if (window.innerWidth < 768) {
+    document.getElementById("sidebar").classList.add("-translate-x-full");
+  }
+}
+
+function openSend() {
+  document.getElementById("sendModal").classList.remove("hidden");
+  document.getElementById("sendModal").classList.add("flex");
+}
+
+function closeSend() {
+  document.getElementById("sendModal").classList.add("hidden");
+}
+
+function toggleTheme() {
+  document.documentElement.classList.toggle("dark");
+}
+
+function filterTx() {
+  const q = document.getElementById("search").value.toLowerCase();
+  document.querySelectorAll(".tx-item").forEach(item => {
+    item.style.display = item.textContent.toLowerCase().includes(q) ? "" : "none";
+  });
+}
+
+setInterval(() => {
+  const kyc = document.getElementById("kyc");
+  kyc.classList.toggle("hidden");
+  setTimeout(() => kyc.classList.add("hidden"), 4000);
+}, 15000);
+</script>
+
+<!-- STYLES -->
+<style>
+.sidebar-link {
+  display:block;
+  padding:10px;
+  border-radius:8px;
+  transition:.3s;
+}
+.sidebar-link:hover {
+  background:#1e3a8a;
+  color:#facc15;
+}
+.action-card {
+  padding:20px;
+  background:#0f172a;
+  color:white;
+  border-radius:14px;
+  font-weight:600;
+  transition:.3s;
+}
+.action-card:hover {
+  transform:translateY(-2px);
+  background:#1e40af;
+}
+.input {
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  margin-bottom:10px;
+}
+.btn-primary {
+  background:#1e40af;
+  color:white;
+  padding:10px;
+  border-radius:8px;
+}
+.btn-secondary {
+  background:#e5e7eb;
+  padding:10px;
+  border-radius:8px;
+}
+@keyframes slideUp {
+  from {opacity:0; transform:translateY(20px)}
+  to {opacity:1; transform:translateY(0)}
+}
+.animate-slideUp { animation:.4s slideUp forwards }
+</style>
+
+
+
+
+</body>
+<!-- Smartsupp Live Chat script -->
+<script>
+var _smartsupp = _smartsupp || {};
+_smartsupp.key = '7a25cc060d5d2575411c7051bae4cf443c5b6134';
+window.smartsupp||(function(d) {
+  var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+  s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+  c.type='text/javascript';c.charset='utf-8';c.async=true;
+  c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+})(document);
+</script>
+</body>
+</html>

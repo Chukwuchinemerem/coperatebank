@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+            <style>
+                /* Responsive sidebar overlay */
+                @media (max-width: 768px) {
+                    .admin-sidebar {
+                        position: fixed;
+                        z-index: 50;
+                        left: 0;
+                        top: 0;
+                        height: 100vh;
+                        width: 80vw;
+                        max-width: 320px;
+                        transform: translateX(-100%);
+                        transition: transform 0.3s;
+                    }
+                    .admin-sidebar.open {
+                        transform: translateX(0);
+                    }
+                    .admin-sidebar-backdrop {
+                        display: block;
+                        position: fixed;
+                        inset: 0;
+                        background: rgba(0,0,0,0.4);
+                        z-index: 40;
+                    }
+                }
+                @media (max-width: 768px) {
+                    .admin-main {
+                        margin-left: 0 !important;
+                        padding: 1rem !important;
+                    }
+                    .admin-table th, .admin-table td {
+                        padding: 0.5rem !important;
+                        font-size: 0.95rem;
+                    }
+                }
+            </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Co-operative Finance Bank</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+
+<!-- Sidebar Toggle Button (Mobile) -->
+<div class="md:hidden flex justify-end items-center w-full px-4 pt-4 z-50">
+    <button id="sidebarToggle" class="bg-blue-900 text-yellow-400 p-2 rounded-lg shadow-lg" onclick="toggleSidebar()">☰</button>
+</div>
+
+<div class="min-h-screen flex flex-col">
+
+    <!-- SIDEBAR -->
+    <div id="sidebarBackdrop" class="admin-sidebar-backdrop hidden md:hidden" onclick="toggleSidebar()"></div>
+    <aside id="adminSidebar" class="admin-sidebar w-64 bg-blue-950 text-slate-200 fixed inset-y-0 left-0 p-6 flex flex-col justify-between md:static md:transform-none md:open">
+        <div>
+            <h2 class="text-2xl font-bold text-yellow-400 mb-6">Co-Operative Finance Admin</h2>
+            <nav class="space-y-2">
+                <a href="#" class="block px-3 py-2 rounded hover:bg-blue-800 hover:text-yellow-400 transition">Dashboard</a>
+                <a href="#" class="block px-3 py-2 rounded hover:bg-blue-800 hover:text-yellow-400 transition">Users</a>
+                <a href="#" class="block px-3 py-2 rounded hover:bg-blue-800 hover:text-yellow-400 transition">Transactions</a>
+                <a href="#" class="block px-3 py-2 rounded hover:bg-blue-800 hover:text-yellow-400 transition">Settings</a>
+            </nav>
+        </div>
+        <div class="text-sm text-slate-400">© Co-Operative Finance Bank</div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 admin-main md:ml-64 p-4 md:p-6">
+        <!-- Header -->
+        <header class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-2">
+            <h1 class="text-2xl md:text-3xl font-bold text-center w-full md:w-auto">Admin Dashboard</h1>
+            <button onclick="toggleTheme()" class="bg-slate-200 dark:bg-slate-700 px-3 py-1 rounded-lg text-sm">🌙 / ☀️</button>
+        </header>
+
+        <!-- USERS TABLE -->
+        <div class="overflow-x-auto bg-white dark:bg-slate-800 rounded-xl shadow p-4 mb-6">
+            <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700 admin-table">
+                <script>
+                function toggleSidebar() {
+                    const sidebar = document.getElementById('adminSidebar');
+                    const backdrop = document.getElementById('sidebarBackdrop');
+                    sidebar.classList.toggle('open');
+                    backdrop.classList.toggle('hidden');
+                }
+                </script>
+                <thead>
+                    <tr class="bg-blue-900 text-yellow-400">
+                        <th class="px-6 py-3 text-left text-sm font-semibold">#</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Full Name</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Email</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Phone</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Account Number</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Balance</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">KYC Status</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
+                    {% for user in users %}
+                    <tr class="hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                        <td class="px-6 py-4">{{ forloop.counter }}</td>
+                        <td class="px-6 py-4">{{ user.full_name }}</td>
+                        <td class="px-6 py-4">{{ user.email }}</td>
+                        <td class="px-6 py-4">{{ user.phone }}</td>
+                        <td class="px-6 py-4">{{ user.account_number }}</td>
+                        <td class="px-6 py-4"><span id="balance-{{ forloop.counter }}" class="balance-value">${{ user.balance }}</span></td>
+                        <td class="px-6 py-4">
+                            <span id="kyc-{{ forloop.counter }}" class="text-yellow-400 font-semibold">{{ user.kyc_status }}</span>
+                        </td>
+                        <td class="px-6 py-4 space-x-2">
+                            <button onclick="openAddFunds({{ user.id }})" class="bg-green-500 hover:bg-green-400 px-2 py-1 rounded text-white text-sm">Add Funds</button>
+                            <button onclick="openSetPin({{ user.id }})" class="bg-yellow-500 hover:bg-yellow-400 px-2 py-1 rounded text-white text-sm">Set PIN</button>
+                            <button onclick="approveKYC({{ forloop.counter }})" class="bg-blue-500 hover:bg-blue-400 px-2 py-1 rounded text-white text-sm">Approve KYC</button>
+                            <button onclick="deleteUser({{ forloop.counter }})" class="bg-red-500 hover:bg-red-400 px-2 py-1 rounded text-white text-sm">Delete</button>
+                            <button onclick="toggleTxHistory({{ forloop.counter }})" class="bg-gray-500 hover:bg-gray-400 px-2 py-1 rounded text-white text-sm">Transactions</button>
+                            <button onclick="openUserDetails({{ forloop.counter }})" class="bg-blue-900 hover:bg-blue-800 px-2 py-1 rounded text-yellow-400 text-sm">View Details</button>
+                        </td>
+                    </tr>
+                    <tr id="txRow-{{ forloop.counter }}" class="hidden bg-gray-50 dark:bg-slate-700 transition">
+                                            <!-- User Details Modal -->
+                                            <div id="userDetailsModal-{{ forloop.counter }}" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+                                                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl w-full max-w-md mx-auto animate-slideUp">
+                                                    <h3 class="text-lg font-bold mb-4 text-blue-900">User Details</h3>
+                                                    <div class="space-y-2 text-sm">
+                                                        <div><span class="font-semibold text-blue-900">Full Name:</span> {{ user.full_name }}</div>
+                                                        <div><span class="font-semibold text-blue-900">Email Address:</span> {{ user.email }}</div>
+                                                        <div><span class="font-semibold text-blue-900">Phone Number:</span> {{ user.phone }}</div>
+                                                        <div><span class="font-semibold text-blue-900">House Address:</span> {{ user.address }}</div>
+                                                        <div><span class="font-semibold text-blue-900">Date of Birth:</span> {{ user.dob }}</div>
+                                                        <div><span class="font-semibold text-blue-900">Sex:</span> {{ user.sex }}</div>
+                                                        <div><span class="font-semibold text-blue-900">Country:</span> {{ user.country }}</div>
+                                                        <div><span class="font-semibold text-blue-900">Occupation:</span> {{ user.occupation }}</div>
+                                                        <div><span class="font-semibold text-blue-900">Passport Photograph:</span><br>
+                                                            {% if user.passport %}
+                                                            <img src="{{ user.passport.url }}" alt="Passport" class="w-32 h-32 object-cover rounded-lg border mt-2">
+                                                            {% else %}
+                                                            <span class="italic text-slate-400">No passport uploaded</span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-4 flex justify-end">
+                                                        <button onclick="closeUserDetails({{ forloop.counter }})" class="btn-secondary">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                        <td colspan="8" class="px-6 py-4">
+                            <table class="w-full table-auto text-sm">
+                                <thead class="text-left">
+                                    <tr class="border-b border-slate-300 dark:border-slate-600">
+                                        <th class="py-1">Date</th>
+                                        <th class="py-1">Type</th>
+                                        <th class="py-1">Amount</th>
+                                        <th class="py-1">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tx in user.tx_list %}
+                                    <tr class="border-b border-slate-200 dark:border-slate-600">
+                                        <td class="py-1">{{ tx.date }}</td>
+                                        <td>{{ tx.type }}</td>
+                                        <td>${{ tx.amount }}</td>
+                                        <td>{{ tx.description }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td colspan="4" class="text-center text-slate-400 py-2">No transactions yet.</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS -->
+<!-- Set Transfer PIN Modal -->
+<div id="setPinModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl w-96 animate-slideUp">
+        <h3 class="text-lg font-bold mb-4">Set Transfer PIN</h3>
+        <form method="post" action="" id="setPinForm">
+            {% csrf_token %}
+            <input type="hidden" name="user_id" id="setPinUserId">
+            <input name="transfer_pin" type="text" maxlength="10" placeholder="Enter new PIN" class="input" required>
+            <div class="flex gap-3 mt-4">
+                <button type="button" onclick="closeSetPin()" class="w-1/2 btn-secondary">Cancel</button>
+                <button type="submit" name="set_pin" class="w-1/2 btn-primary">Set PIN</button>
+            </div>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'Transfer PIN set' in message %}
+                    <div class="flex items-center justify-center mt-4 text-green-600 font-bold">
+                        <span style="font-size:2rem;">&#10003;</span> PIN set successfully!
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+<script>
+function openSetPin(userId) {
+    document.getElementById('setPinUserId').value = userId;
+    document.getElementById('setPinModal').classList.remove('hidden');
+    document.getElementById('setPinModal').classList.add('flex');
+}
+function closeSetPin() {
+    document.getElementById('setPinModal').classList.add('hidden');
+}
+</script>
+
+<!-- Add Funds Modal -->
+<form id="addFundsModal" method="post" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+    {% csrf_token %}
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl w-96 animate-slideUp">
+        <h3 class="text-lg font-bold mb-4">Add Funds</h3>
+        <input id="fundAmount" name="amount" type="number" placeholder="Amount $" class="input w-full mb-3" required>
+        <input type="hidden" id="fundUserId" name="user_id">
+        <div class="flex gap-3">
+            <button type="button" onclick="closeAddFunds()" class="btn-secondary w-1/2">Cancel</button>
+            <button type="submit" name="add_funds" class="btn-primary w-1/2">Add Funds</button>
+        </div>
+    </div>
+</form>
+
+<!-- Generate PIN Modal -->
+<div id="generatePinModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl w-96 animate-slideUp">
+        <h3 class="text-lg font-bold mb-4">Generate Transfer PIN</h3>
+        <p class="text-sm mb-3">This will generate a secure transfer PIN for the selected user.</p>
+        <div class="flex gap-3">
+            <button onclick="closeGeneratePin()" class="btn-secondary w-1/2">Cancel</button>
+            <button onclick="confirmGeneratePin()" class="btn-primary w-1/2">Generate</button>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+
+let selectedUserId = null;
+
+// Theme toggle
+function toggleTheme() {
+    document.documentElement.classList.toggle('dark');
+}
+
+// Add funds modal
+function openAddFunds(userId) {
+    selectedUserId = userId;
+    document.getElementById('addFundsModal').classList.remove('hidden');
+    document.getElementById('addFundsModal').classList.add('flex');
+    document.getElementById('fundUserId').value = userId;
+}
+
+function closeAddFunds() {
+    document.getElementById('addFundsModal').classList.add('hidden');
+}
+
+// User Details Modal functions
+function openUserDetails(idx) {
+    document.getElementById(`userDetailsModal-${idx}`).classList.remove('hidden');
+    document.getElementById(`userDetailsModal-${idx}`).classList.add('flex');
+}
+function closeUserDetails(idx) {
+    document.getElementById(`userDetailsModal-${idx}`).classList.add('hidden');
+}
+
+// Generate PIN modal
+function openGeneratePin(userId) {
+    selectedUserId = userId;
+    document.getElementById('generatePinModal').classList.remove('hidden');
+    document.getElementById('generatePinModal').classList.add('flex');
+}
+
+function closeGeneratePin() {
+    document.getElementById('generatePinModal').classList.add('hidden');
+}
+
+function confirmGeneratePin() {
+    alert("Transfer PIN generated for user ID: " + selectedUserId);
+    closeGeneratePin();
+    // Call backend to generate PIN
+}
+
+
+
+// Toggle transaction history
+function toggleTxHistory(userId) {
+    const row = document.getElementById(`txRow-${userId}`);
+    row.classList.toggle('hidden');
+}
+
+
+</script>
+
+<!-- Styles -->
+<style>
+.input {
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin-bottom:10px;
+}
+.btn-primary {
+    background:#1e40af;
+    color:white;
+    padding:10px;
+    border-radius:8px;
+    transition:0.3s;
+}
+.btn-primary:hover { background:#2563eb; }
+.btn-secondary {
+    background:#e5e7eb;
+    padding:10px;
+    border-radius:8px;
+    transition:0.3s;
+}
+@keyframes slideUp {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+.animate-slideUp { animation:.4s slideUp forwards; }
+</style>
+
+</body>
+</html>
