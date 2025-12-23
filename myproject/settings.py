@@ -9,7 +9,14 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'replace_this_with_a_real_secret_key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+ALLOWED_HOSTS = [
+    'coperatebank.onrender.com',
+    'www.coperatebank.onrender.com',
+    'www.cooperativefinance.com',
+    'cooperativefinance.com',
+    '127.0.0.1',
+    
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
