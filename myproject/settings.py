@@ -4,6 +4,11 @@ from pathlib import Path
 import dj_database_url
 from dotenv.main import load_dotenv
 
+# Superuser credentials for non-interactive creation (used by custom management command)
+DJANGO_SUPERUSER_USERNAME = os.getenv("DJANGO_SUPERUSER_USERNAME")
+DJANGO_SUPERUSER_EMAIL = os.getenv("DJANGO_SUPERUSER_EMAIL")
+DJANGO_SUPERUSER_PASSWORD = os.getenv("DJANGO_SUPERUSER_PASSWORD")
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
