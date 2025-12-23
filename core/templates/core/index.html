@@ -2,6 +2,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+              <style>
+                /* Google Translate select custom size for homepage */
+                #google_translate_element select.goog-te-combo {
+                  width: 220px !important;
+                  height: 22px !important;
+                  min-height: 22px !important;
+                  max-height: 26px !important;
+                  font-size: 15px !important;
+                  border-radius: 5px !important;
+                  border: 1px solid #d1d5db !important;
+                  padding: 2px 8px !important;
+                  background: #f9fafb !important;
+                  color: #222 !important;
+                  transition: border 0.2s !important;
+                }
+                #google_translate_element select.goog-te-combo:focus {
+                  border: 1.5px solid #2563eb !important;
+                  outline: none !important;
+                }
+              </style>
           <!-- Social Media Preview Meta Tags -->
           <meta property="og:title" content="CO-OPERATIVE FINANCE BANK" />
           <meta property="og:description" content="The Better Way To Save & Invest. Secure digital banking for everyone." />
@@ -203,6 +223,18 @@
     }
   </script>
 </head>
+  <!-- Google Translate Widget (14 languages only) -->
+  <div id="google_translate_element" style="position: fixed; top: 470px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 4px; border-radius: 10px; box-shadow: 0 2px 20px rgba(0,0,0,0.1);"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <body class="bg-gray-200 flex justify-center">
 
@@ -690,7 +722,7 @@ window.smartsupp||(function(d) {
         <ul class="space-y-4 text-sm">
           <li>
             📞 <span class="text-slate-400">Company Phone:</span><br>
-            <span class="text-white font-medium">+1 (501) 237-5577</span>
+            <span class="text-white font-medium">+1 (501) 237-55**</span>
           </li>
           <li>
             📍 <span class="text-slate-400">Head Office:</span><br>
@@ -760,5 +792,3 @@ window.smartsupp||(function(d) {
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
-
-</html>

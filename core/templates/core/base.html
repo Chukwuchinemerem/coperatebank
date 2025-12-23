@@ -9,6 +9,24 @@
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
         <!-- Custom Animations -->
         <style>
+                /* Google Translate select custom size */
+                #google_translate_element select.goog-te-combo {
+                    width: 220px !important;
+                    height: 22px !important;
+                    min-height: 22px !important;
+                    max-height: 26px !important;
+                    font-size: 15px !important;
+                    border-radius: 5px !important;
+                    border: 1px solid #d1d5db !important;
+                    padding: 2px 8px !important;
+                    background: #f9fafb !important;
+                    color: #222 !important;
+                    transition: border 0.2s !important;
+                }
+                #google_translate_element select.goog-te-combo:focus {
+                    border: 1.5px solid #2563eb !important;
+                    outline: none !important;
+                }
         @keyframes ticker {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -50,10 +68,71 @@
     })(document);
     </script>
 </head>
+    <!-- Google Translate Widget (14 languages only) -->
+    <div id="google_translate_element" style="position: fixed; top: 120px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 5px 18px 2px 18px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); min-width: 180px; min-height: 28px; max-width: 260px;">
+    </div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <body class="bg-white text-gray-900 min-h-screen flex flex-col">
-    <main class="flex-1">
-        {% block content %}{% endblock %}
-    </main>
+        <!-- Language Selector Dropdown -->
+        <div class="w-full flex justify-end px-6 pt-4">
+            <div class="relative group">
+                <button id="langDropdownBtn" class="flex items-center gap-2 px-4 py-2 rounded-xl shadow-md bg-gradient-to-r from-[#0a3c74] to-[#1976d2] text-white font-semibold hover:from-[#1976d2] hover:to-[#0a3c74] focus:outline-none transition-all duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                    <span id="selectedLang">Language</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="langDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 z-50 animate-fadeIn">
+                    <ul class="py-2 max-h-72 overflow-y-auto">
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">English</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Español (Spanish)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Français (French)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Deutsch (German)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Português (Portuguese)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Italiano (Italian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Nederlands (Dutch)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Русский (Russian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">中文 (Chinese)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">日本語 (Japanese)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">한국어 (Korean)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">العربية (Arabic)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">हिन्दी (Hindi)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">বাংলা (Bengali)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Türkçe (Turkish)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">עברית (Hebrew)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Tiếng Việt (Vietnamese)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Polski (Polish)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Українська (Ukrainian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">ไทย (Thai)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Bahasa Indonesia (Indonesian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Svenska (Swedish)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Suomi (Finnish)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Norsk (Norwegian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Dansk (Danish)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Ελληνικά (Greek)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Čeština (Czech)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Magyar (Hungarian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Română (Romanian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Slovenčina (Slovak)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Slovenščina (Slovenian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Hrvatski (Croatian)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Català (Catalan)</a></li>
+                        <li><a href="#" class="block px-5 py-2 text-gray-800 hover:bg-[#e3e8f7] rounded-lg transition">Filipino (Tagalog)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <main class="flex-1">
+                {% block content %}{% endblock %}
+        </main>
     <footer class="bg-gray-900 text-gray-200 py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
             <div class="flex items-center space-x-2">
@@ -63,5 +142,29 @@
             <div class="text-sm mt-2 md:mt-0">&copy; {{ now|date:'Y' }} Co-Operative Finance. All rights reserved.</div>
         </div>
     </footer>
+    </body>
+    <script>
+    // Language Dropdown Functionality
+    const langBtn = document.getElementById('langDropdownBtn');
+    const langDropdown = document.getElementById('langDropdown');
+    const selectedLang = document.getElementById('selectedLang');
+    langBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        langDropdown.classList.toggle('hidden');
+    });
+    langDropdown.querySelectorAll('a').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            selectedLang.textContent = this.textContent;
+            langDropdown.classList.add('hidden');
+            // Optionally: Save language selection to localStorage or send to backend
+        });
+    });
+    document.addEventListener('click', function(e) {
+        if (!langDropdown.classList.contains('hidden')) {
+            langDropdown.classList.add('hidden');
+        }
+    });
+    </script>
 </body>
 </html>
