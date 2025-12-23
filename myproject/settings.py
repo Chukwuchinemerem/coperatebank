@@ -12,8 +12,8 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'coperatebank.onrender.com',
     'www.coperatebank.onrender.com',
-    'www.cooperativefinance.com',
-    'cooperativefinance.com',
+    'www.cooperatefinance.com',
+    'cooperatefinance.com',
     '127.0.0.1',
     
 ]
