@@ -1,0 +1,69 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Select Language" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .flag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem auto;
+            max-width: 500px;
+        }
+        .flag-btn {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: box-shadow 0.2s, border 0.2s;
+        }
+        .flag-btn:hover, .flag-btn:focus {
+            border: 2px solid #2563eb;
+            box-shadow: 0 2px 12px rgba(37,99,235,0.08);
+        }
+        .flag-img {
+            width: 40px;
+            height: 28px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+        .flag-label {
+            font-size: 1rem;
+            color: #222;
+            font-weight: 500;
+        }
+        .lang-active {
+            border: 2px solid #22c55e;
+            background: #f0fdf4;
+        }
+        @media (max-width: 600px) {
+            .flag-grid { max-width: 98vw; gap: 1rem; }
+            .flag-btn { padding: 0.7rem 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center; margin-top:2rem;">{% trans "Select Your Language" %}</h1>
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.META.HTTP_REFERER|default:'/' }}">
+        <div class="flag-grid">
+            {% for code, name in languages %}
+                <button type="submit" name="language" value="{{ code }}" class="flag-btn{% if code == current_language %} lang-active{% endif %}">
+                    <img class="flag-img" src="{% static 'core/flags/'|add:code|add:'.svg' %}" alt="{{ name }} flag">
+                    <span class="flag-label">{{ name }}</span>
+                </button>
+            {% endfor %}
+        </div>
+    </form>
+</body>
+</html>

@@ -1,19 +1,8 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Translate Widget (14 languages only) -->
-    <div id="google_translate_element" style="position: fixed; top: 470px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 4px; border-radius: 10px; box-shadow: 0 2px 20px rgba(0,0,0,0.1);"></div>
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-      }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Privacy Policy | CO-OPERATIVE FINANCE BANK</title>
@@ -30,32 +19,32 @@
 </head>
 <body>
   <div class="container">
-    <h1>Privacy Policy</h1>
-    <p>CO-OPERATIVE FINANCE BANK is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information:</p>
-    <h2>1. Information Collection</h2>
+    <h1>{% trans "Privacy Policy" %}</h1>
+    <p>{% trans "CO-OPERATIVE FINANCE BANK is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information:" %}</p>
+    <h2>{% trans "1. Information Collection" %}</h2>
     <ul>
-      <li>We collect personal information you provide during registration and account use.</li>
-      <li>We may collect usage data to improve our services.</li>
+      <li>{% trans "We collect personal information you provide during registration and account use." %}</li>
+      <li>{% trans "We may collect usage data to improve our services." %}</li>
     </ul>
-    <h2>2. Use of Information</h2>
+    <h2>{% trans "2. Use of Information" %}</h2>
     <ul>
-      <li>Your information is used to provide banking services and improve user experience.</li>
-      <li>We do not sell or share your data with third parties except as required by law.</li>
+      <li>{% trans "Your information is used to provide banking services and improve user experience." %}</li>
+      <li>{% trans "We do not sell or share your data with third parties except as required by law." %}</li>
     </ul>
-    <h2>3. Security</h2>
+    <h2>{% trans "3. Security" %}</h2>
     <ul>
-      <li>We use industry-standard security measures to protect your data.</li>
+      <li>{% trans "We use industry-standard security measures to protect your data." %}</li>
     </ul>
-    <h2>4. Cookies</h2>
+    <h2>{% trans "4. Cookies" %}</h2>
     <ul>
-      <li>Cookies are used to enhance site functionality and user experience.</li>
+      <li>{% trans "Cookies are used to enhance site functionality and user experience." %}</li>
     </ul>
-    <h2>5. Changes to Policy</h2>
+    <h2>{% trans "5. Changes to Policy" %}</h2>
     <ul>
-      <li>We may update this policy. Changes will be posted on this page.</li>
+      <li>{% trans "We may update this policy. Changes will be posted on this page." %}</li>
     </ul>
-    <h2>6. Contact</h2>
-    <p>For privacy concerns, contact <a href="mailto:privacy@cooperativefinancebank.com">privacy@cooperativefinancebank.com</a>.</p>
+    <h2>{% trans "6. Contact" %}</h2>
+    <p>{% trans "For privacy concerns, contact" %} <a href="mailto:privacy@cooperativefinancebank.com">privacy@cooperativefinancebank.com</a>.</p>
   </div>
 </body>
 </html>

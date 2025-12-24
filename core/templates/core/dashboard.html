@@ -1,20 +1,9 @@
+{% load i18n %}
 
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <!-- Google Translate Widget (14 languages only) -->
-    <div id="google_translate_element" style="position: fixed; top: 470px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 4px; border-radius: 10px; box-shadow: 0 2px 20px rgba(0,0,0,0.1);"></div>
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-      }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Co-operative Finance Bank</title>
@@ -31,17 +20,17 @@
   <!-- SIDEBAR -->
   <aside id="sidebar" class="w-64 bg-blue-950 text-slate-200 fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40">
     <div class="p-6 text-xl font-bold text-yellow-400">
-      Co-operative Finance Bank
+      {% trans "Co-operative Finance Bank" %}
     </div>
 
     <nav class="space-y-2 px-4">
-      <a href="#" class="sidebar-link" onclick="showSection('dashboard');closeSidebarOnMobile()">Dashboard</a>
-      <a href="#" class="sidebar-link" onclick="showSection('accounts');closeSidebarOnMobile()">Accounts</a>
-      <a href="#" class="sidebar-link" onclick="showSection('transfers');closeSidebarOnMobile()">Transfers</a>
-      <a href="#" class="sidebar-link" onclick="showSection('cards');closeSidebarOnMobile()">Cards</a>
-      <a href="#" class="sidebar-link" onclick="showSection('transactions');closeSidebarOnMobile()">Transactions</a>
-      <a href="#" class="sidebar-link" onclick="showSection('security');closeSidebarOnMobile()">Security</a>
-      <a href="#" class="sidebar-link" onclick="showSection('settings');closeSidebarOnMobile()">Settings</a>
+      <a href="#" class="sidebar-link" onclick="showSection('dashboard');closeSidebarOnMobile()">{% trans "Dashboard" %}</a>
+      <a href="#" class="sidebar-link" onclick="showSection('accounts');closeSidebarOnMobile()">{% trans "Accounts" %}</a>
+      <a href="#" class="sidebar-link" onclick="showSection('transfers');closeSidebarOnMobile()">{% trans "Transfers" %}</a>
+      <a href="#" class="sidebar-link" onclick="showSection('cards');closeSidebarOnMobile()">{% trans "Cards" %}</a>
+      <a href="#" class="sidebar-link" onclick="showSection('transactions');closeSidebarOnMobile()">{% trans "Transactions" %}</a>
+      <a href="#" class="sidebar-link" onclick="showSection('security');closeSidebarOnMobile()">{% trans "Security" %}</a>
+      <a href="#" class="sidebar-link" onclick="showSection('settings');closeSidebarOnMobile()">{% trans "Settings" %}</a>
     </nav>
   </aside>
 

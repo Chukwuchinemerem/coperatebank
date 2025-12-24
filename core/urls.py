@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.views.i18n import set_language
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('privacy/', views.privacy, name='privacy'),
     path('terms/', views.terms, name='terms'),
+    path('select-language/', views.select_language, name='select_language'),
 ]

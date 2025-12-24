@@ -1,0 +1,14 @@
+msgid "Co-Operative Finance"
+msgstr "التمويل التعاوني"
+
+msgid "Select Language"
+msgstr "اختر اللغة"
+
+msgid "Select Your Language"
+msgstr "اختر لغتك"
+
+msgid "Register"
+msgstr "تسجيل"
+
+msgid "Sign In"
+msgstr "تسجيل الدخول"

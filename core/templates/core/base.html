@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
         <meta charset="UTF-8">
-        <title>Co-Operative Finance</title>
+        <title>{% trans "Co-Operative Finance" %}</title>
         <link rel="stylesheet" href="/static/core/css/style.css">
         <!-- Tailwind CSS CDN (for Render, production should use static build) -->
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
@@ -68,19 +68,7 @@
     })(document);
     </script>
 </head>
-    <!-- Google Translate Widget (14 languages only) -->
-    <div id="google_translate_element" style="position: fixed; top: 120px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 5px 18px 2px 18px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); min-width: 180px; min-height: 28px; max-width: 260px;">
-    </div>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
 <body class="bg-white text-gray-900 min-h-screen flex flex-col">
         <!-- Language Selector Dropdown -->
         <div class="w-full flex justify-end px-6 pt-4">

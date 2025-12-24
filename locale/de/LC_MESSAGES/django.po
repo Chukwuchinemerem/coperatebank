@@ -1,0 +1,14 @@
+msgid "Co-Operative Finance"
+msgstr "Genossenschaftsfinanzierung"
+
+msgid "Select Language"
+msgstr "Sprache wählen"
+
+msgid "Select Your Language"
+msgstr "Wählen Sie Ihre Sprache"
+
+msgid "Register"
+msgstr "Registrieren"
+
+msgid "Sign In"
+msgstr "Anmelden"

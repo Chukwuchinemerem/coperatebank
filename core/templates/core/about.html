@@ -1,19 +1,8 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Translate Widget (14 languages only) -->
-    <div id="google_translate_element" style="position: fixed; top: 470px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 4px; border-radius: 10px; box-shadow: 0 2px 20px rgba(0,0,0,0.1);"></div>
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-      }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Us | CO-OPERATIVE FINANCE BANK</title>
@@ -28,20 +17,20 @@
 </head>
 <body>
   <div class="container">
-    <h1>About Us</h1>
-    <h2>Our Mission</h2>
-    <p>To empower individuals and communities by providing secure, innovative, and accessible banking solutions.</p>
-    <h2>Who We Are</h2>
-    <p>CO-OPERATIVE FINANCE BANK is a modern digital bank focused on customer-centric financial services. We offer savings, investments, cards, and online banking with top-tier security and support.</p>
-    <h2>Why Choose Us?</h2>
+    <h1>{% trans "About Us" %}</h1>
+    <h2>{% trans "Our Mission" %}</h2>
+    <p>{% trans "To empower individuals and communities by providing secure, innovative, and accessible banking solutions." %}</p>
+    <h2>{% trans "Who We Are" %}</h2>
+    <p>{% trans "CO-OPERATIVE FINANCE BANK is a modern digital bank focused on customer-centric financial services. We offer savings, investments, cards, and online banking with top-tier security and support." %}</p>
+    <h2>{% trans "Why Choose Us?" %}</h2>
     <ul>
-      <li>Advanced security and privacy</li>
-      <li>Easy-to-use digital banking platform</li>
-      <li>Responsive customer support</li>
-      <li>Community-driven values</li>
+      <li>{% trans "Advanced security and privacy" %}</li>
+      <li>{% trans "Easy-to-use digital banking platform" %}</li>
+      <li>{% trans "Responsive customer support" %}</li>
+      <li>{% trans "Community-driven values" %}</li>
     </ul>
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:support@cooperatefinance.com">support@cooperatefinance.com</a></p>
+    <h2>{% trans "Contact" %}</h2>
+    <p>{% trans "Email:" %} <a href="mailto:support@cooperatefinance.com">support@cooperatefinance.com</a></p>
   </div>
 </body>
 </html>

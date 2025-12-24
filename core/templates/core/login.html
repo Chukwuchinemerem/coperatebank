@@ -1,30 +1,19 @@
-    <!-- Google Translate Widget (14 languages only) -->
-    <div id="google_translate_element" style="position: fixed; top: 470px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 4px; border-radius: 10px; box-shadow: 0 2px 20px rgba(0,0,0,0.1);"></div>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    {% load i18n %}
 
 {% block content %}
 <div class="login-container">
-    <h2 class="login-title">CO-OPERATIVE FINANCE BANK</h2>
+    <h2 class="login-title">{% trans "CO-OPERATIVE FINANCE BANK" %}</h2>
     <form method="post" class="login-form">
         {% csrf_token %}
         <div class="form-group">
-            <label for="username">Login ID (Customer ID)</label>
+            <label for="username">{% trans "Login ID (Customer ID)" %}</label>
             <input type="text" id="username" name="username" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="password">Password (Customer Password)</label>
+            <label for="password">{% trans "Password (Customer Password)" %}</label>
             <input type="password" id="password" name="password" class="form-control" required>
         </div>
-        <button type="submit" class="btn-primary btn-block">Login</button>
+        <button type="submit" class="btn-primary btn-block">{% trans "Login" %}</button>
     </form>
 </div>
 <style>

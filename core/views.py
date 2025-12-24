@@ -1,3 +1,16 @@
+# Multi-language selection view
+from django.conf import settings
+from django.utils.translation import get_language
+from django.views.decorators.csrf import csrf_protect
+
+@csrf_protect
+def select_language(request):
+    languages = settings.LANGUAGES
+    current_language = get_language()
+    return render(request, 'core/select_language.html', {
+        'languages': languages,
+        'current_language': current_language,
+    })
 from django.shortcuts import render
 # ...existing code...
 

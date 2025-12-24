@@ -1,19 +1,8 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Translate Widget (14 languages only) -->
-    <div id="google_translate_element" style="position: fixed; top: 470px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 4px; border-radius: 10px; box-shadow: 0 2px 20px rgba(0,0,0,0.1);"></div>
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-      }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Terms & Conditions | CO-OPERATIVE FINANCE BANK</title>
@@ -30,29 +19,29 @@
 </head>
 <body>
   <div class="container">
-    <h1>Terms & Conditions</h1>
-    <p>Welcome to CO-OPERATIVE FINANCE BANK. By accessing or using our services, you agree to the following terms and conditions:</p>
-    <h2>1. Account Registration</h2>
+    <h1>{% trans "Terms & Conditions" %}</h1>
+    <p>{% trans "Welcome to CO-OPERATIVE FINANCE BANK. By accessing or using our services, you agree to the following terms and conditions:" %}</p>
+    <h2>{% trans "1. Account Registration" %}</h2>
     <ul>
-      <li>You must provide accurate and complete information when registering.</li>
-      <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
+      <li>{% trans "You must provide accurate and complete information when registering." %}</li>
+      <li>{% trans "You are responsible for maintaining the confidentiality of your account credentials." %}</li>
     </ul>
-    <h2>2. Use of Services</h2>
+    <h2>{% trans "2. Use of Services" %}</h2>
     <ul>
-      <li>Our services are for personal banking and financial management only.</li>
-      <li>Unauthorized use or access is strictly prohibited.</li>
+      <li>{% trans "Our services are for personal banking and financial management only." %}</li>
+      <li>{% trans "Unauthorized use or access is strictly prohibited." %}</li>
     </ul>
-    <h2>3. Privacy</h2>
+    <h2>{% trans "3. Privacy" %}</h2>
     <ul>
-      <li>Your data is protected as described in our <a href="/privacy">Privacy Policy</a>.</li>
+      <li>{% trans "Your data is protected as described in our" %} <a href="/privacy">{% trans "Privacy Policy" %}</a>.</li>
     </ul>
-    <h2>4. Liability</h2>
+    <h2>{% trans "4. Liability" %}</h2>
     <ul>
-      <li>CO-OPERATIVE FINANCE BANK is not liable for losses due to unauthorized account access.</li>
-      <li>We reserve the right to modify these terms at any time.</li>
+      <li>{% trans "CO-OPERATIVE FINANCE BANK is not liable for losses due to unauthorized account access." %}</li>
+      <li>{% trans "We reserve the right to modify these terms at any time." %}</li>
     </ul>
-    <h2>5. Contact</h2>
-    <p>For questions, please contact us at <a href="mailto:support@cooperativefinancebank.com">support@cooperativefinancebank.com</a>.</p>
+    <h2>{% trans "5. Contact" %}</h2>
+    <p>{% trans "For questions, please contact us at" %} <a href="mailto:support@cooperativefinancebank.com">support@cooperativefinancebank.com</a>.</p>
   </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,14 +24,14 @@
                 }
               </style>
           <!-- Social Media Preview Meta Tags -->
-          <meta property="og:title" content="CO-OPERATIVE FINANCE BANK" />
-          <meta property="og:description" content="The Better Way To Save & Invest. Secure digital banking for everyone." />
+          <meta property="og:title" content="{% trans 'CO-OPERATIVE FINANCE BANK' %}" />
+          <meta property="og:description" content="{% trans 'The Better Way To Save & Invest. Secure digital banking for everyone.' %}" />
           <meta property="og:image" content="https://yourdomain.com/static/core/images/banker.jpg" />
           <meta property="og:url" content="https://yourdomain.com/" />
           <meta property="og:type" content="website" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="CO-OPERATIVE FINANCE BANK" />
-          <meta name="twitter:description" content="The Better Way To Save & Invest. Secure digital banking for everyone." />
+          <meta name="twitter:title" content="{% trans 'CO-OPERATIVE FINANCE BANK' %}" />
+          <meta name="twitter:description" content="{% trans 'The Better Way To Save & Invest. Secure digital banking for everyone.' %}" />
           <meta name="twitter:image" content="https://yourdomain.com/static/core/images/banker.jpg" />
         <style>
           /* Sleek toggle menu styles */
@@ -223,18 +224,6 @@
     }
   </script>
 </head>
-  <!-- Google Translate Widget (14 languages only) -->
-  <div id="google_translate_element" style="position: fixed; top: 470px; right: 10px; z-index: 9999; background: white; text-align: center; padding: 4px; border-radius: 10px; box-shadow: 0 2px 20px rgba(0,0,0,0.1);"></div>
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,es,pt,ar,fr,de,ru,zh-CN,ja,hi,it,tr,ko,pl',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <body class="bg-gray-200 flex justify-center">
 
@@ -303,21 +292,25 @@
   <div class="max-w-7xl mx-auto px-6 text-center">
     <!-- Section Title -->
     <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-      Get Started with Your Account
+      {% trans "Get Started with Your Account" %}
     </h2>
     <p class="text-gray-600 mb-10">
-      Securely access your account or create a new one to start banking with confidence.
+      {% trans "Securely access your account or create a new one to start banking with confidence." %}
     </p>
 
     <!-- Buttons -->
     <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+            <!-- Select Language Button -->
+            <a href="/select-language/" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center">
+              {% trans "Select Language" %}
+            </a>
       <!-- Sign In Button -->
       <a href="/login" class="flex-1 min-w-[120px] px-8 py-3 bg-blue-900 text-white font-semibold rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl text-center">
-        Sign In
+        {% trans "Sign In" %}
       </a>
       <!-- Register Button -->
       <a href="/register" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center">
-        Register
+        {% trans "Register" %}
       </a>
     </div>
   </div>
