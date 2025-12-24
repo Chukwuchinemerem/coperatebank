@@ -1,11 +1,8 @@
-{% load i18n %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <script src="{% static 'core/js/app.js' %}"></script>
     <meta charset="UTF-8">
-    <title>{% trans "Select Language" %}</title>
+    <title>Select Language</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         .flag-grid {
@@ -51,65 +48,97 @@
             .flag-btn { padding: 0.7rem 0.2rem; }
         }
     </style>
+    <!-- Google Translate widget -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,fr,es,pt,ko,tr,ru,zh,pl,it,ky'}, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-    <h1 style="text-align:center; margin-top:2rem;">{% trans "Select Your Language" %}</h1>
-        <div class="flag-grid">
-            <button class="flag-btn" data-lang="en">
-                <img class="flag-img" src="{% static 'core/flags/en.svg' %}" alt="English flag">
-                <span class="flag-label">English</span>
-            </button>
-            <button class="flag-btn" data-lang="fr">
-                <img class="flag-img" src="{% static 'core/flags/fr.svg' %}" alt="French flag">
-                <span class="flag-label">Français</span>
-            </button>
-            <button class="flag-btn" data-lang="es">
-                <img class="flag-img" src="{% static 'core/flags/es.svg' %}" alt="Spanish flag">
-                <span class="flag-label">Español</span>
-            </button>
-            <button class="flag-btn" data-lang="pt">
-                <img class="flag-img" src="{% static 'core/flags/pt.svg' %}" alt="Portuguese flag">
-                <span class="flag-label">Português</span>
-            </button>
-            <button class="flag-btn" data-lang="ko">
-                <img class="flag-img" src="{% static 'core/flags/ko.svg' %}" alt="Korean flag">
-                <span class="flag-label">한국어</span>
-            </button>
-            <button class="flag-btn" data-lang="tr">
-                <img class="flag-img" src="{% static 'core/flags/tr.svg' %}" alt="Turkish flag">
-                <span class="flag-label">Türkçe</span>
-            </button>
-            <button class="flag-btn" data-lang="ru">
-                <img class="flag-img" src="{% static 'core/flags/ru.svg' %}" alt="Russian flag">
-                <span class="flag-label">Русский</span>
-            </button>
-            <button class="flag-btn" data-lang="zh">
-                <img class="flag-img" src="{% static 'core/flags/zh.svg' %}" alt="Chinese flag">
-                <span class="flag-label">中文</span>
-            </button>
-            <button class="flag-btn" data-lang="pl">
-                <img class="flag-img" src="{% static 'core/flags/pl.svg' %}" alt="Polish flag">
-                <span class="flag-label">Polski</span>
-            </button>
-            <button class="flag-btn" data-lang="it">
-                <img class="flag-img" src="{% static 'core/flags/it.svg' %}" alt="Italian flag">
-                <span class="flag-label">Italiano</span>
-            </button>
-            <button class="flag-btn" data-lang="kg">
-                <img class="flag-img" src="{% static 'core/flags/kg.svg' %}" alt="Kyrgyz flag">
-                <span class="flag-label">Кыргызча</span>
-            </button>
-        </div>
-        <script>
-            document.querySelectorAll('.flag-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const lang = btn.getAttribute('data-lang');
-                    localStorage.setItem('lang', lang);
-                    // Redirect to homepage or dashboard (change as needed)
+    <h1 style="text-align:center; margin-top:2rem;">Select Your Language</h1>
+    <div id="google_translate_element" style="text-align:center; margin-bottom:2rem;"></div>
+    <div class="flag-grid">
+        <button class="flag-btn" data-lang="en">
+            <img class="flag-img" src="https://flagcdn.com/48x36/gb.png" alt="English flag">
+            <span class="flag-label">English</span>
+        </button>
+        <button class="flag-btn" data-lang="fr">
+            <img class="flag-img" src="https://flagcdn.com/48x36/fr.png" alt="French flag">
+            <span class="flag-label">Français</span>
+        </button>
+        <button class="flag-btn" data-lang="es">
+            <img class="flag-img" src="https://flagcdn.com/48x36/es.png" alt="Spanish flag">
+            <span class="flag-label">Español</span>
+        </button>
+        <button class="flag-btn" data-lang="pt">
+            <img class="flag-img" src="https://flagcdn.com/48x36/pt.png" alt="Portuguese flag">
+            <span class="flag-label">Português</span>
+        </button>
+        <button class="flag-btn" data-lang="ko">
+            <img class="flag-img" src="https://flagcdn.com/48x36/kr.png" alt="Korean flag">
+            <span class="flag-label">한국어</span>
+        </button>
+        <button class="flag-btn" data-lang="tr">
+            <img class="flag-img" src="https://flagcdn.com/48x36/tr.png" alt="Turkish flag">
+            <span class="flag-label">Türkçe</span>
+        </button>
+        <button class="flag-btn" data-lang="ru">
+            <img class="flag-img" src="https://flagcdn.com/48x36/ru.png" alt="Russian flag">
+            <span class="flag-label">Русский</span>
+        </button>
+        <button class="flag-btn" data-lang="zh">
+            <img class="flag-img" src="https://flagcdn.com/48x36/cn.png" alt="Chinese flag">
+            <span class="flag-label">中文</span>
+        </button>
+        <button class="flag-btn" data-lang="pl">
+            <img class="flag-img" src="https://flagcdn.com/48x36/pl.png" alt="Polish flag">
+            <span class="flag-label">Polski</span>
+        </button>
+        <button class="flag-btn" data-lang="it">
+            <img class="flag-img" src="https://flagcdn.com/48x36/it.png" alt="Italian flag">
+            <span class="flag-label">Italiano</span>
+        </button>
+        <button class="flag-btn" data-lang="ky">
+            <img class="flag-img" src="https://flagcdn.com/48x36/kg.png" alt="Kyrgyz flag">
+            <span class="flag-label">Кыргызча</span>
+        </button>
+    </div>
+    <script>
+        // Map language codes to Google Translate dropdown values
+        const langMap = {
+            en: 'en',
+            fr: 'fr',
+            es: 'es',
+            pt: 'pt',
+            ko: 'ko',
+            tr: 'tr',
+            ru: 'ru',
+            zh: 'zh-CN',
+            pl: 'pl',
+            it: 'it',
+            ky: 'ky'
+        };
+        // Flag click sets language, triggers Google Translate, and redirects
+        document.querySelectorAll('.flag-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var lang = btn.getAttribute('data-lang');
+                localStorage.setItem('lang', lang);
+                // Try to trigger Google Translate immediately if widget is present
+                var select = document.querySelector('select.goog-te-combo');
+                var googleLang = langMap[lang] || 'en';
+                if (select) {
+                    select.value = googleLang;
+                    select.dispatchEvent(new Event('input', { bubbles: true }));
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                setTimeout(function() {
                     window.location.href = '/';
-                });
+                }, 200); // Slight delay to allow translation to start
             });
-        </script>
+        });
+    </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 {% load static %}
-{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,14 +25,14 @@
                 }
               </style>
           <!-- Social Media Preview Meta Tags -->
-          <meta property="og:title" content="{% trans 'CO-OPERATIVE FINANCE BANK' %}" />
-          <meta property="og:description" content="{% trans 'The Better Way To Save & Invest. Secure digital banking for everyone.' %}" />
+          <meta property="og:title" content="CO-OPERATIVE FINANCE BANK" data-i18n="bank_title" />
+          <meta property="og:description" content="The Better Way To Save & Invest. Secure digital banking for everyone." data-i18n="bank_subtitle" />
           <meta property="og:image" content="https://yourdomain.com/static/core/images/banker.jpg" />
           <meta property="og:url" content="https://yourdomain.com/" />
           <meta property="og:type" content="website" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="{% trans 'CO-OPERATIVE FINANCE BANK' %}" />
-          <meta name="twitter:description" content="{% trans 'The Better Way To Save & Invest. Secure digital banking for everyone.' %}" />
+          <meta name="twitter:title" content="CO-OPERATIVE FINANCE BANK" data-i18n="bank_title" />
+          <meta name="twitter:description" content="The Better Way To Save & Invest. Secure digital banking for everyone." data-i18n="bank_subtitle" />
           <meta name="twitter:image" content="https://yourdomain.com/static/core/images/banker.jpg" />
         <style>
           /* Sleek toggle menu styles */
@@ -227,6 +227,54 @@
 </head>
 
 <body class="bg-gray-200 flex justify-center">
+<div id="google_translate_element" style="height:0;width:0;overflow:hidden;"></div>
+<script>
+  // Map language codes to Google Translate codes
+  const langMap = {
+    en: 'en',
+    fr: 'fr',
+    es: 'es',
+    pt: 'pt',
+    ko: 'ko',
+    tr: 'tr',
+    ru: 'ru',
+    zh: 'zh-CN',
+    pl: 'pl',
+    it: 'it',
+    ky: 'ky'
+  };
+  // Clear Google Translate cookies to avoid old language persistence
+  function clearGoogleCookies() {
+    document.cookie.split(';').forEach(function(c) {
+      if (c.trim().startsWith('googtrans=')) {
+        document.cookie = c.trim().replace(/^.*(?==)/, '') + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+      }
+    });
+  }
+  function triggerGoogleTranslate(lang) {
+    var select = document.querySelector('select.goog-te-combo');
+    if (select) {
+      var googleLang = langMap[lang] || 'en';
+      select.value = googleLang;
+      select.dispatchEvent(new Event('input', { bubbles: true }));
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    clearGoogleCookies();
+    var lang = localStorage.getItem('lang') || 'en';
+    var attempts = 0;
+    var maxAttempts = 30;
+    var interval = setInterval(function() {
+      triggerGoogleTranslate(lang);
+      var select = document.querySelector('select.goog-te-combo');
+      var googleLang = langMap[lang] || 'en';
+      if (select && select.value === googleLang) clearInterval(interval);
+      attempts++;
+      if (attempts >= maxAttempts) clearInterval(interval);
+    }, 300);
+  });
+</script>
 
 <!-- PHONE CONTAINER -->
 <div class="w-full max-w-md bg-white min-h-screen shadow-xl">
@@ -547,9 +595,28 @@
   }
 </style>
 
-
-
-
+<!-- Google Translate widget -->
+    <style>
+      /* Hide Google Translate branding and controls */
+      #google_translate_element .goog-te-banner-frame.skiptranslate, 
+      #google_translate_element .goog-logo-link, 
+      #google_translate_element .goog-te-gadget-icon, 
+      .goog-te-combo, 
+      .goog-te-menu-value, 
+      .goog-te-menu-frame, 
+      .goog-te-balloon-frame, 
+      .goog-te-banner-frame, 
+      .goog-te-gadget-simple {
+        display: none !important;
+      }
+      body { top: 0 !important; }
+    </style>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,fr,es,pt,ko,tr,ru,zh,pl,it,ky', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
 <!-- Smartsupp Live Chat script -->
 <script type="text/javascript">
