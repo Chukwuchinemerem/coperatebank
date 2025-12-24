@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+    <script src="{% static 'core/js/app.js' %}"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Co-operative Finance Bank</title>
@@ -20,17 +21,17 @@
   <!-- SIDEBAR -->
   <aside id="sidebar" class="w-64 bg-blue-950 text-slate-200 fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40">
     <div class="p-6 text-xl font-bold text-yellow-400">
-      {% trans "Co-operative Finance Bank" %}
+      Co-operative Finance Bank
     </div>
 
     <nav class="space-y-2 px-4">
-      <a href="#" class="sidebar-link" onclick="showSection('dashboard');closeSidebarOnMobile()">{% trans "Dashboard" %}</a>
-      <a href="#" class="sidebar-link" onclick="showSection('accounts');closeSidebarOnMobile()">{% trans "Accounts" %}</a>
-      <a href="#" class="sidebar-link" onclick="showSection('transfers');closeSidebarOnMobile()">{% trans "Transfers" %}</a>
-      <a href="#" class="sidebar-link" onclick="showSection('cards');closeSidebarOnMobile()">{% trans "Cards" %}</a>
-      <a href="#" class="sidebar-link" onclick="showSection('transactions');closeSidebarOnMobile()">{% trans "Transactions" %}</a>
-      <a href="#" class="sidebar-link" onclick="showSection('security');closeSidebarOnMobile()">{% trans "Security" %}</a>
-      <a href="#" class="sidebar-link" onclick="showSection('settings');closeSidebarOnMobile()">{% trans "Settings" %}</a>
+      <a href="#" class="sidebar-link" onclick="showSection('dashboard');closeSidebarOnMobile()" data-i18n="dashboard">Dashboard</a>
+      <a href="#" class="sidebar-link" onclick="showSection('accounts');closeSidebarOnMobile()" data-i18n="accounts">Accounts</a>
+      <a href="#" class="sidebar-link" onclick="showSection('transfers');closeSidebarOnMobile()" data-i18n="transfers">Transfers</a>
+      <a href="#" class="sidebar-link" onclick="showSection('cards');closeSidebarOnMobile()" data-i18n="cards">Cards</a>
+      <a href="#" class="sidebar-link" onclick="showSection('transactions');closeSidebarOnMobile()" data-i18n="transactions">Transactions</a>
+      <a href="#" class="sidebar-link" onclick="showSection('security');closeSidebarOnMobile()" data-i18n="security">Security</a>
+      <a href="#" class="sidebar-link" onclick="showSection('settings');closeSidebarOnMobile()" data-i18n="settings">Settings</a>
     </nav>
   </aside>
 
@@ -61,7 +62,7 @@
       <div id="section-dashboard">
         <!-- BALANCE CARD -->
         <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white rounded-2xl p-8 shadow-xl">
-          <h2 class="text-yellow-300 text-sm uppercase">Available Balance</h2>
+          <h2 class="text-yellow-300 text-sm uppercase" data-i18n="available_balance">Available Balance</h2>
           <div class="flex items-center gap-4 mt-2">
             {% if profile %}
             <span id="balance" class="text-4xl font-bold">${{ profile.balance|floatformat:2 }}</span>
@@ -73,7 +74,7 @@
               {% endfor %}
             {% endif %}
             {% else %}
-            <span id="balance" class="text-4xl font-bold text-red-400">No profile found</span>
+            <span id="balance" class="text-4xl font-bold text-red-400" data-i18n="no_profile">No profile found</span>
             {% endif %}
           </div>
           <div class="mt-4 flex items-center gap-3">
@@ -83,10 +84,10 @@
         </div>
         <!-- ACTION BUTTONS -->
         <div class="grid md:grid-cols-2 gap-6">
-          <button onclick="openSend()" class="action-card">
+          <button onclick="openSend()" class="action-card" data-i18n="send_money">
             Send Money
           </button>
-          <button class="action-card bg-yellow-400 text-blue-900 hover:bg-yellow-300">
+          <button class="action-card bg-yellow-400 text-blue-900 hover:bg-yellow-300" data-i18n="receive_money">
             Receive Money
           </button>
         </div>
@@ -96,8 +97,8 @@
       <div id="section-transactions" style="display:none;">
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow p-6">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="font-semibold text-lg">Transactions</h3>
-            <input id="search" onkeyup="filterTx()" placeholder="Search..." class="border px-3 py-2 rounded-lg dark:bg-slate-700">
+            <h3 class="font-semibold text-lg" data-i18n="transactions_title">Transactions</h3>
+            <input id="search" onkeyup="filterTx()" placeholder="Search..." class="border px-3 py-2 rounded-lg dark:bg-slate-700" data-i18n="search">
           </div>
           <ul id="txList" class="space-y-3 text-sm">
             <!-- Example transactions, replace with Django context if needed -->
@@ -106,7 +107,7 @@
             <li class="tx-item">Online Purchase - $120</li>
             <li class="tx-item">Transfer Received +$800</li>
           </ul>
-          <div id="noTxMsg" class="text-center text-slate-400 mt-6 hidden">No transactions yet.</div>
+          <div id="noTxMsg" class="text-center text-slate-400 mt-6 hidden" data-i18n="no_transactions">No transactions yet.</div>
         </div>
       </div>
     </main>
@@ -116,20 +117,20 @@
 <!-- SEND MONEY MODAL -->
 <div id="sendModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
   <div class="bg-white dark:bg-slate-800 p-6 rounded-xl w-96 animate-slideUp">
-    <h3 class="text-lg font-bold mb-4">Send Money</h3>
+    <h3 class="text-lg font-bold mb-4" data-i18n="send_money_title">Send Money</h3>
     <form method="post" action="" id="sendMoneyForm">
       {% csrf_token %}
-      <input name="recipient_account" placeholder="Recipient Account" class="input" required>
-      <input name="amount" type="number" step="0.01" placeholder="Amount ($)" class="input" required>
-      <input name="description" placeholder="Description" class="input">
-      <input name="transfer_pin" type="password" placeholder="Transfer PIN" class="input" required>
+      <input name="recipient_account" placeholder="Recipient Account" class="input" required data-i18n="recipient_account">
+      <input name="amount" type="number" step="0.01" placeholder="Amount ($)" class="input" required data-i18n="amount">
+      <input name="description" placeholder="Description" class="input" data-i18n="description">
+      <input name="transfer_pin" type="password" placeholder="Transfer PIN" class="input" required data-i18n="transfer_pin">
       <div class="flex gap-3 mt-4">
-        <button type="button" onclick="closeSend()" class="w-1/2 btn-secondary">Cancel</button>
-        <button type="submit" class="w-1/2 btn-primary">Send</button>
+        <button type="button" onclick="closeSend()" class="w-1/2 btn-secondary" data-i18n="cancel">Cancel</button>
+        <button type="submit" class="w-1/2 btn-primary" data-i18n="send">Send</button>
       </div>
     </form>
     <div id="transferSuccess" style="display:none;" class="flex items-center justify-center mt-4 text-green-600 font-bold">
-      <span style="font-size:2rem;">&#10003;</span> Transfer successful!
+      <span style="font-size:2rem;">&#10003;</span> <span data-i18n="transfer_success">Transfer successful!</span>
     </div>
     {% if messages %}
       {% for message in messages %}
@@ -150,9 +151,9 @@
 
 <!-- KYC POPUP -->
 <div id="kyc" class="fixed bottom-6 right-6 bg-white dark:bg-slate-800 p-5 rounded-xl shadow-xl hidden animate-slideUp">
-  <h4 class="font-bold mb-1">Complete KYC</h4>
-  <p class="text-sm mb-3">Increase your transfer limits.</p>
-  <button class="btn-primary w-full">Verify Now</button>
+  <h4 class="font-bold mb-1" data-i18n="complete_kyc">Complete KYC</h4>
+  <p class="text-sm mb-3" data-i18n="increase_limits">Increase your transfer limits.</p>
+  <button class="btn-primary w-full" data-i18n="verify_now">Verify Now</button>
 </div>
 
 <!-- JS -->

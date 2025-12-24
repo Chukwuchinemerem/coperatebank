@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <script src="{% static 'core/js/app.js' %}"></script>
     <meta charset="UTF-8">
     <title>{% trans "Select Language" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,17 +54,62 @@
 </head>
 <body>
     <h1 style="text-align:center; margin-top:2rem;">{% trans "Select Your Language" %}</h1>
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.META.HTTP_REFERER|default:'/' }}">
         <div class="flag-grid">
-            {% for code, name in languages %}
-                <button type="submit" name="language" value="{{ code }}" class="flag-btn{% if code == current_language %} lang-active{% endif %}">
-                    <img class="flag-img" src="{% static 'core/flags/'|add:code|add:'.svg' %}" alt="{{ name }} flag">
-                    <span class="flag-label">{{ name }}</span>
-                </button>
-            {% endfor %}
+            <button class="flag-btn" data-lang="en">
+                <img class="flag-img" src="{% static 'core/flags/en.svg' %}" alt="English flag">
+                <span class="flag-label">English</span>
+            </button>
+            <button class="flag-btn" data-lang="fr">
+                <img class="flag-img" src="{% static 'core/flags/fr.svg' %}" alt="French flag">
+                <span class="flag-label">Français</span>
+            </button>
+            <button class="flag-btn" data-lang="es">
+                <img class="flag-img" src="{% static 'core/flags/es.svg' %}" alt="Spanish flag">
+                <span class="flag-label">Español</span>
+            </button>
+            <button class="flag-btn" data-lang="pt">
+                <img class="flag-img" src="{% static 'core/flags/pt.svg' %}" alt="Portuguese flag">
+                <span class="flag-label">Português</span>
+            </button>
+            <button class="flag-btn" data-lang="ko">
+                <img class="flag-img" src="{% static 'core/flags/ko.svg' %}" alt="Korean flag">
+                <span class="flag-label">한국어</span>
+            </button>
+            <button class="flag-btn" data-lang="tr">
+                <img class="flag-img" src="{% static 'core/flags/tr.svg' %}" alt="Turkish flag">
+                <span class="flag-label">Türkçe</span>
+            </button>
+            <button class="flag-btn" data-lang="ru">
+                <img class="flag-img" src="{% static 'core/flags/ru.svg' %}" alt="Russian flag">
+                <span class="flag-label">Русский</span>
+            </button>
+            <button class="flag-btn" data-lang="zh">
+                <img class="flag-img" src="{% static 'core/flags/zh.svg' %}" alt="Chinese flag">
+                <span class="flag-label">中文</span>
+            </button>
+            <button class="flag-btn" data-lang="pl">
+                <img class="flag-img" src="{% static 'core/flags/pl.svg' %}" alt="Polish flag">
+                <span class="flag-label">Polski</span>
+            </button>
+            <button class="flag-btn" data-lang="it">
+                <img class="flag-img" src="{% static 'core/flags/it.svg' %}" alt="Italian flag">
+                <span class="flag-label">Italiano</span>
+            </button>
+            <button class="flag-btn" data-lang="kg">
+                <img class="flag-img" src="{% static 'core/flags/kg.svg' %}" alt="Kyrgyz flag">
+                <span class="flag-label">Кыргызча</span>
+            </button>
         </div>
-    </form>
+        <script>
+            document.querySelectorAll('.flag-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = btn.getAttribute('data-lang');
+                    localStorage.setItem('lang', lang);
+                    // Redirect to homepage or dashboard (change as needed)
+                    window.location.href = '/';
+                });
+            });
+        </script>
 </body>
 </html>

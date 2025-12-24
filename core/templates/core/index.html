@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+                <script src="{% static 'core/js/app.js' %}"></script>
               <style>
                 /* Google Translate select custom size for homepage */
                 #google_translate_element select.goog-te-combo {
@@ -238,20 +239,20 @@
           <div class="bg-white shadow-lg px-2 py-1 flex items-center justify-center border border-gray-200 rounded-md">
             <img src="{% static 'core/images/citizen-logo.png' %}" class="h-12 w-auto object-contain" alt="Logo">
           </div>
-          <span id="coop-bank-title" class="font-bold text-base md:text-lg tracking-wider text-white drop-shadow-sm" style="letter-spacing:1.2px;"></span>
+          <span id="coop-bank-title" class="font-bold text-base md:text-lg tracking-wider text-white drop-shadow-sm" style="letter-spacing:1.2px;" data-i18n="bank_title">CO-OPERATIVE FINANCE BANK</span>
         </div>
       </div>
       <!-- Sleek Toggle Right -->
       <div class="relative">
         <button class="bank-menu-toggle" id="bankMenuBtn" aria-label="Open menu" onclick="document.getElementById('bankMenuDropdown').classList.toggle('hidden')">☰</button>
         <div id="bankMenuDropdown" class="bank-menu-dropdown hidden">
-          <a href="/" class="bank-menu-link">Home</a>
-          <a href="/about" class="bank-menu-link">About Us</a>
-          <a href="/login" class="bank-menu-link">Sign In</a>
-          <a href="/register" class="bank-menu-link">Register</a>
-          <a href="/faq" class="bank-menu-link">FAQ</a>
-          <a href="/privacy" class="bank-menu-link">Privacy Policy</a>
-          <a href="/terms" class="bank-menu-link">Terms & Conditions</a>
+          <a href="/" class="bank-menu-link" data-i18n="home">Home</a>
+          <a href="/about" class="bank-menu-link" data-i18n="about">About Us</a>
+          <a href="/login" class="bank-menu-link" data-i18n="sign_in">Sign In</a>
+          <a href="/register" class="bank-menu-link" data-i18n="register">Register</a>
+          <a href="/faq" class="bank-menu-link" data-i18n="faq">FAQ</a>
+          <a href="/privacy" class="bank-menu-link" data-i18n="privacy">Privacy Policy</a>
+          <a href="/terms" class="bank-menu-link" data-i18n="terms">Terms & Conditions</a>
         </div>
       </div>
     </div>
@@ -278,10 +279,10 @@
       <img src="{% static 'core/images/internet-banking-online-payment-technology-concept.jpg' %}"
         class="homepage-fade homepage-fade-3" style="animation-delay: 6s;" />
       <div class="homepage-badge-group" id="homepage-badges">
-        <span class="homepage-badge">Business Checking</span>
-        <span class="homepage-badge">Savings Account</span>
-        <span class="homepage-badge">Credit Cards</span>
-        <span class="homepage-badge">Home Loans</span>
+        <span class="homepage-badge" data-i18n="business_checking">Business Checking</span>
+        <span class="homepage-badge" data-i18n="savings_account">Savings Account</span>
+        <span class="homepage-badge" data-i18n="credit_cards">Credit Cards</span>
+        <span class="homepage-badge" data-i18n="home_loans">Home Loans</span>
       </div>
     </div>
     <br>
@@ -291,26 +292,26 @@
     
   <div class="max-w-7xl mx-auto px-6 text-center">
     <!-- Section Title -->
-    <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-      {% trans "Get Started with Your Account" %}
+    <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4" data-i18n="get_started">
+      Get Started with Your Account
     </h2>
-    <p class="text-gray-600 mb-10">
-      {% trans "Securely access your account or create a new one to start banking with confidence." %}
+    <p class="text-gray-600 mb-10" data-i18n="secure_access">
+      Securely access your account or create a new one to start banking with confidence.
     </p>
 
     <!-- Buttons -->
     <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-            <!-- Select Language Button -->
-            <a href="/select-language/" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center">
-              {% trans "Select Language" %}
+            <!-- Only show Select Language button -->
+            <a href="/select-language/" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center" data-i18n="select_language">
+              Select Language
             </a>
       <!-- Sign In Button -->
-      <a href="/login" class="flex-1 min-w-[120px] px-8 py-3 bg-blue-900 text-white font-semibold rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl text-center">
-        {% trans "Sign In" %}
+      <a href="/login" class="flex-1 min-w-[120px] px-8 py-3 bg-blue-900 text-white font-semibold rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl text-center" data-i18n="sign_in">
+        Sign In
       </a>
       <!-- Register Button -->
-      <a href="/register" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center">
-        {% trans "Register" %}
+      <a href="/register" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center" data-i18n="register">
+        Register
       </a>
     </div>
   </div>
@@ -329,10 +330,8 @@
           </svg>
         </div>
       </div>
-      <h3 class="text-lg font-semibold mb-2">Better Savings</h3>
-      <p class="text-sm text-white/80">
-        What is the best savings account to save money? Our easy savings account gives you access.
-      </p>
+      <h3 class="text-lg font-semibold mb-2" data-i18n="better_savings">Better Savings</h3>
+      <p class="text-sm text-white/80" data-i18n="better_savings_desc">What is the best savings account to save money? Our easy savings account gives you access.</p>
     </div>
 
     <!-- Box 2 -->
@@ -346,10 +345,8 @@
           </svg>
         </div>
       </div>
-      <h3 class="text-lg font-semibold mb-2">Fully Encrypted</h3>
-      <p class="text-sm text-white/80">
-        Fully encrypted virtual wallet and mobile banking apps for easy transactions.
-      </p>
+      <h3 class="text-lg font-semibold mb-2" data-i18n="fully_encrypted">Fully Encrypted</h3>
+      <p class="text-sm text-white/80" data-i18n="fully_encrypted_desc">Fully encrypted virtual wallet and mobile banking apps for easy transactions.</p>
     </div>
 
     <!-- Box 3 -->
@@ -362,10 +359,8 @@
           </svg>
         </div>
       </div>
-      <h3 class="text-lg font-semibold mb-2">Credit/ Debit Cards</h3>
-      <p class="text-sm text-white/80">
-        With your debit cards, you have complete access to your money from any at anytime.
-      </p>
+      <h3 class="text-lg font-semibold mb-2" data-i18n="credit_debit_cards">Credit/ Debit Cards</h3>
+      <p class="text-sm text-white/80" data-i18n="credit_debit_cards_desc">With your debit cards, you have complete access to your money from any at anytime.</p>
     </div>
 
     <!-- Box 4 -->
@@ -377,10 +372,8 @@
           </svg>
         </div>
       </div>
-      <h3 class="text-lg font-semibold mb-2">Secure and Easy</h3>
-      <p class="text-sm text-white/80">
-        Easy online and mobile banking experience, secure for all our digital platform.
-      </p>
+      <h3 class="text-lg font-semibold mb-2" data-i18n="secure_easy">Secure and Easy</h3>
+      <p class="text-sm text-white/80" data-i18n="secure_easy_desc">Easy online and mobile banking experience, secure for all our digital platform.</p>
     </div>
 
   </div>
@@ -388,14 +381,10 @@
 <section class="bg-blue-900 py-20 relative overflow-hidden flex flex-col items-center justify-center">
   <div class="w-full flex flex-col items-center justify-center px-0 text-center relative z-10">
     <!-- Heading -->
-    <h1 class="text-4xl md:text-5xl font-bold text-yellow-400 mb-6">
-      Access Your Funds Anywhere, Anytime
-    </h1>
+    <h1 class="text-4xl md:text-5xl font-bold text-yellow-400 mb-6" data-i18n="access_anywhere">Access Your Funds Anywhere, Anytime</h1>
 
     <!-- Description -->
-    <p class="text-white text-lg md:text-xl mb-12">
-      Our cards work seamlessly at ATMs, POS terminals, and for online payments. Enjoy secure, fast, and convenient transactions worldwide with just a tap or swipe.
-    </p>
+    <p class="text-white text-lg md:text-xl mb-12" data-i18n="atm_desc">Our cards work seamlessly at ATMs, POS terminals, and for online payments. Enjoy secure, fast, and convenient transactions worldwide with just a tap or swipe.</p>
 
     <!-- Images Container -->
      <section class="pt-0 pb-8 mt-0 flex flex-col items-center w-full justify-center">
