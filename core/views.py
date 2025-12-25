@@ -154,6 +154,7 @@ def dashboard(request):
             elif not profile.transfer_pin or transfer_pin != profile.transfer_pin:
                 messages.error(request, 'Invalid or missing transfer PIN. Please get your PIN from the admin.')
             else:
+                from .models import Transaction
                 try:
                     recipient = UserProfile.objects.get(account_number=recipient_account)
                     profile.balance -= amount
@@ -161,7 +162,6 @@ def dashboard(request):
                     profile.save()
                     recipient.save()
                     # Log transaction for sender
-                    from .models import Transaction
                     Transaction.objects.create(
                         user=profile,
                         tx_type='transfer',
@@ -179,7 +179,17 @@ def dashboard(request):
                     )
                     messages.success(request, f'Transferred ${amount} to {recipient.full_name} ({recipient.account_number}) successfully!')
                 except UserProfile.DoesNotExist:
-                    messages.error(request, 'Recipient account not found.')
+                    # External transfer: just deduct from sender, log as external
+                    profile.balance -= amount
+                    profile.save()
+                    Transaction.objects.create(
+                        user=profile,
+                        tx_type='external_transfer',
+                        amount=amount,
+                        description=f'Transfer to external account {recipient_account}',
+                        related_user=None
+                    )
+                    messages.success(request, f'Transferred ${amount} to external account {recipient_account} successfully!')
         except Exception:
             messages.error(request, 'Invalid amount.')
     return render(request, 'core/dashboard.html', {'profile': profile})
@@ -255,3 +265,10 @@ def register(request):
         auth_login(request, user)
         return redirect('dashboard')
     return render(request, 'core/register.html')
+from django.contrib.admin.views.decorators import staff_member_required
+
+@staff_member_required
+def admin_users(request):
+    from .models import UserProfile
+    users = UserProfile.objects.all()
+    return render(request, 'core/admin_users.html', {'users': users})

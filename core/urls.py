@@ -9,6 +9,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='core/login.html', next_page='dashboard'), name='login'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin-dashboard/users/', views.admin_users, name='admin_users'),
     path('about/', views.about, name='about'),
     path('faq/', views.faq, name='faq'),
     path('privacy/', views.privacy, name='privacy'),
