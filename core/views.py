@@ -1,3 +1,10 @@
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+# Custom logout view to redirect to homepage
+from django.contrib.auth import logout
+def custom_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
 # Multi-language selection view
 from django.conf import settings
 from django.utils.translation import get_language
@@ -241,6 +248,13 @@ def register(request):
         password = request.POST.get('password')
         username = email
 
+        # Prevent duplicate registration
+        from django.contrib.auth.models import User
+        from django.contrib import messages
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'A user with this email already exists.')
+            return render(request, 'core/register.html')
+
         # Save passport file
         passport_path = None
         if passport:
@@ -293,3 +307,50 @@ def password_reset(request):
             messages.error(request, 'No user found with that email.')
         return redirect('password_reset')
     return render(request, 'core/password_reset.html')
+from django.contrib.admin.views.decorators import staff_member_required
+
+@staff_member_required
+def admin_create_user(request):
+    from django.contrib import messages
+    from django.contrib.auth.models import User
+    from .models import UserProfile
+    from django.core.files.storage import default_storage
+    if request.method == 'POST':
+        firstname = request.POST.get('firstname')
+        middlename = request.POST.get('middlename')
+        lastname = request.POST.get('lastname')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+        dob = request.POST.get('dob')
+        sex = request.POST.get('sex')
+        country = request.POST.get('country')
+        occupation = request.POST.get('occupation')
+        passport = request.FILES.get('passport')
+        password = request.POST.get('password')
+        username = email
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'A user with this email already exists.')
+            return render(request, 'core/admin_create_user.html')
+        passport_path = None
+        if passport:
+            passport_path = default_storage.save(f'passports/{passport.name}', passport)
+        user = User.objects.create_user(username=username, email=email, password=password,
+                                       first_name=firstname, last_name=lastname)
+        user.save()
+        full_name = f"{firstname} {middlename} {lastname}".strip()
+        profile = UserProfile.objects.create(
+            user=user,
+            full_name=full_name,
+            phone=phone,
+            address=address,
+            dob=dob,
+            sex=sex,
+            country=country,
+            occupation=occupation,
+            passport=passport_path if passport_path else None
+        )
+        profile.save()
+        messages.success(request, 'User created successfully!')
+        return redirect('admin_users')
+    return render(request, 'core/admin_create_user.html')

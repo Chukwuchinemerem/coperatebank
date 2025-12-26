@@ -32,7 +32,10 @@
       <a href="#" class="sidebar-link" onclick="showSection('transactions');closeSidebarOnMobile()" data-i18n="transactions">Transactions</a>
       <a href="#" class="sidebar-link" onclick="showSection('security');closeSidebarOnMobile()" data-i18n="security">Security</a>
       <a href="#" class="sidebar-link" onclick="showSection('settings');closeSidebarOnMobile()" data-i18n="settings">Settings</a>
-      <a href="/logout/" class="sidebar-link text-red-400 font-bold" id="logoutBtn">Logout</a>
+      <form method="post" action="{% url 'logout' %}" style="margin:0;">
+        {% csrf_token %}
+        <button type="submit" class="sidebar-link text-red-400 font-bold w-full text-left" style="background:none;border:none;padding:0;">Logout</button>
+      </form>
     </nav>
   </aside>
 
