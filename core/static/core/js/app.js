@@ -188,3 +188,37 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 // --- End JS i18n ---
+
+// --- Dashboard Sidebar Toggle & Outside Click ---
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar.classList.contains('-translate-x-full')) {
+    sidebar.classList.remove('-translate-x-full');
+    document.body.classList.add('sidebar-open');
+  } else {
+    sidebar.classList.add('-translate-x-full');
+    document.body.classList.remove('sidebar-open');
+  }
+}
+
+function closeSidebarOnMobile() {
+  const sidebar = document.getElementById('sidebar');
+  if (window.innerWidth < 768) {
+    sidebar.classList.add('-translate-x-full');
+    document.body.classList.remove('sidebar-open');
+  }
+}
+
+document.addEventListener('click', function(event) {
+  const sidebar = document.getElementById('sidebar');
+  if (!sidebar) return;
+  if (window.innerWidth >= 768) return;
+  if (!sidebar.classList.contains('-translate-x-full')) {
+    // Sidebar is open
+    if (!sidebar.contains(event.target) && !event.target.closest('button[onclick*="toggleSidebar"]')) {
+      sidebar.classList.add('-translate-x-full');
+      document.body.classList.remove('sidebar-open');
+    }
+  }
+});
+// --- End Dashboard Sidebar Toggle ---

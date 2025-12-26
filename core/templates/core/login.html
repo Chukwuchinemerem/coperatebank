@@ -1,10 +1,22 @@
 {% load i18n %}
 
 {% block content %}
+<!-- SECURITY WARNING -->
+<div id="securityWarning" style="display:block;text-align:center;font-weight:bold;color:#dc2626;font-size:1.1rem;margin-top:18px;margin-bottom:10px;">
+  <span style="font-size:1.5rem;">&#9888;&#65039;</span> DO NOT DISCLOSE YOUR LOGIN "ID" AND "PIN" TO ANYONE!!!
+</div>
+<script>
+  // Animate security warning every 3 seconds
+  setInterval(function() {
+    const el = document.getElementById('securityWarning');
+    el.style.visibility = (el.style.visibility === 'hidden') ? 'visible' : 'hidden';
+  }, 3000);
+</script>
 <div class="login-container">
     <h2 class="login-title">{% trans "CO-OPERATIVE FINANCE BANK" %}</h2>
     <form method="post" class="login-form">
         {% csrf_token %}
+        <input type="hidden" name="next" value="/dashboard/" />
         <div class="form-group">
             <label for="username">{% trans "Login ID (Customer ID)" %}</label>
             <input type="text" id="username" name="username" class="form-control" required>
@@ -14,7 +26,15 @@
             <input type="password" id="password" name="password" class="form-control" required>
         </div>
         <button type="submit" class="btn-primary btn-block">{% trans "Login" %}</button>
+        <div style="text-align:right;margin-top:10px;">
+          <a href="{% url 'password_reset' %}" class="text-blue-600 hover:underline font-semibold">Forgot password?</a>
+        </div>
     </form>
+</div>
+<!-- ONLINE BANKING DESCRIPTION -->
+<div class="login-description">
+  <h3 class="desc-title">ONLINE BANKING</h3>
+  <p class="desc-text">Co-Operative Finance Online provides you with a wide range of banking services that require only a few clicks! There is no form filling-up, and number taking needed, every transaction is made online. Banking is now made simple with Co-Operative Finance Online.</p>
 </div>
 <!-- Google Translate widget -->
 <div id="google_translate_element" style="height:0;width:0;overflow:hidden;"></div>
@@ -112,6 +132,29 @@
 .btn-primary.btn-block:hover {
     background: #183a8a;
 }
+.login-description {
+    max-width: 400px;
+    margin: 32px auto 0 auto;
+    background: #f7fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(33,84,207,0.07);
+    padding: 28px 32px 22px 32px;
+    text-align: center;
+}
+.desc-title {
+    color: #2154cf;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+.desc-text {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
 
 @media (max-width: 600px) {
     .login-container {
@@ -132,6 +175,18 @@
     .btn-primary.btn-block {
         font-size: 15px;
         padding: 10px;
+    }
+    .login-description {
+        max-width: 100vw;
+        padding: 18px 2vw 14px 2vw;
+        border-radius: 0;
+        margin-top: 24px;
+    }
+    .desc-title {
+        font-size: 1rem;
+    }
+    .desc-text {
+        font-size: 0.97rem;
     }
 }
 </style>

@@ -23,8 +23,8 @@
     <div class="p-6 text-xl font-bold text-yellow-400">
       Co-operative Finance Bank
     </div>
-
     <nav class="space-y-2 px-4">
+      <a href="#" class="sidebar-link" onclick="showSection('profile');closeSidebarOnMobile()">Profile</a>
       <a href="#" class="sidebar-link" onclick="showSection('dashboard');closeSidebarOnMobile()" data-i18n="dashboard">Dashboard</a>
       <a href="#" class="sidebar-link" onclick="showSection('accounts');closeSidebarOnMobile()" data-i18n="accounts">Accounts</a>
       <a href="#" class="sidebar-link" onclick="showSection('transfers');closeSidebarOnMobile()" data-i18n="transfers">Transfers</a>
@@ -32,6 +32,7 @@
       <a href="#" class="sidebar-link" onclick="showSection('transactions');closeSidebarOnMobile()" data-i18n="transactions">Transactions</a>
       <a href="#" class="sidebar-link" onclick="showSection('security');closeSidebarOnMobile()" data-i18n="security">Security</a>
       <a href="#" class="sidebar-link" onclick="showSection('settings');closeSidebarOnMobile()" data-i18n="settings">Settings</a>
+      <a href="/logout/" class="sidebar-link text-red-400 font-bold" id="logoutBtn">Logout</a>
     </nav>
   </aside>
 
@@ -40,23 +41,55 @@
 
     <!-- TOP NAV -->
     <header class="bg-white dark:bg-slate-800 shadow flex justify-between items-center px-6 py-4">
-      <button onclick="toggleSidebar()" class="md:hidden text-2xl">☰</button>
-
+      <button onclick="toggleSidebar()" class="md:hidden text-2xl" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-900 dark:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+      </button>
       <div class="flex items-center gap-4">
         <!-- Dark Mode Toggle -->
-        <button onclick="toggleTheme()" class="bg-slate-200 dark:bg-slate-700 px-3 py-1 rounded-lg text-sm">
-          🌙 / ☀️
+        <button onclick="toggleTheme()" class="bg-slate-200 dark:bg-slate-700 px-3 py-1 rounded-lg text-sm flex items-center gap-2" aria-label="Toggle dark mode">
+          <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg>
+          <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-900 dark:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" /></svg>
+          <span class="hidden md:inline">Dark Mode</span>
         </button>
-
-        <span class="relative">
-          🔔
+        <!-- Notifications -->
+        <button onclick="showNotifications()" class="relative" aria-label="Show notifications">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-900 dark:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
           <span class="absolute -top-1 -right-1 bg-yellow-400 text-xs px-1 rounded-full">!</span>
-        </span>
+        </button>
       </div>
     </header>
 
     <!-- DASHBOARD BODY -->
     <main class="p-6 space-y-8">
+      <!-- PROFILE SECTION -->
+      <div id="section-profile" style="display:none;">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow p-6 max-w-xl mx-auto">
+          <h2 class="text-2xl font-bold mb-4 text-blue-900">Profile</h2>
+          {% if profile %}
+          <div class="flex flex-col md:flex-row gap-6 items-center">
+            <div>
+              {% if profile.passport %}
+                <img src="{{ profile.passport.url }}" alt="Passport" class="w-32 h-32 object-cover rounded-lg border mb-4">
+              {% else %}
+                <div class="w-32 h-32 flex items-center justify-center bg-slate-200 rounded-lg border mb-4 text-slate-400">No Image</div>
+              {% endif %}
+            </div>
+            <div class="flex-1 space-y-2">
+              <div><span class="font-semibold">Account Number:</span> {{ profile.account_number }}</div>
+              <div><span class="font-semibold">First Name:</span> {{ profile.user.first_name }}</div>
+              <div><span class="font-semibold">Middle Name:</span> {{ profile.user.last_name }}</div>
+              <div><span class="font-semibold">Last Name:</span> {{ profile.user.last_name }}</div>
+              <div><span class="font-semibold">Phone:</span> {{ profile.phone }}</div>
+              <div><span class="font-semibold">Email:</span> {{ profile.user.email }}</div>
+              <div><span class="font-semibold">House Address:</span> {{ profile.address }}</div>
+              <div><span class="font-semibold">Nationality:</span> {{ profile.country }}</div>
+            </div>
+          </div>
+          {% else %}
+          <div class="text-red-400">No profile found.</div>
+          {% endif %}
+        </div>
+      </div>
 
       <!-- DASHBOARD SECTION -->
       <div id="section-dashboard">
@@ -201,23 +234,20 @@
 <!-- JS -->
 <script>
 function showSection(section) {
-  // Hide all sections
-  document.getElementById('section-dashboard').style.display = 'none';
-  document.getElementById('section-transactions').style.display = 'none';
-  // Show selected
-  if (section === 'dashboard') {
-    document.getElementById('section-dashboard').style.display = '';
-  } else if (section === 'transactions') {
-    document.getElementById('section-transactions').style.display = '';
-    // Check if there are transactions
-    var txList = document.getElementById('txList');
-    var noTxMsg = document.getElementById('noTxMsg');
-    if (txList && txList.children.length === 0) {
-      noTxMsg.classList.remove('hidden');
-    } else {
-      noTxMsg.classList.add('hidden');
-    }
-  }
+  const sections = [
+    'profile',
+    'dashboard',
+    'accounts',
+    'transfers',
+    'cards',
+    'transactions',
+    'security',
+    'settings'
+  ];
+  sections.forEach(s => {
+    const el = document.getElementById('section-' + s);
+    if (el) el.style.display = (s === section) ? '' : 'none';
+  });
 }
 let showAcc = false;
 
@@ -247,8 +277,21 @@ function closeSend() {
 }
 
 function toggleTheme() {
-  document.documentElement.classList.toggle("dark");
+  document.documentElement.classList.toggle('dark');
+  // Show correct icon
+  document.getElementById('icon-sun').style.display = document.documentElement.classList.contains('dark') ? 'block' : 'none';
+  document.getElementById('icon-moon').style.display = document.documentElement.classList.contains('dark') ? 'none' : 'block';
 }
+
+function showNotifications() {
+  alert('No new notifications.'); // Replace with real notification logic if needed
+}
+
+// On load, set correct icon
+window.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('icon-sun').style.display = document.documentElement.classList.contains('dark') ? 'block' : 'none';
+  document.getElementById('icon-moon').style.display = document.documentElement.classList.contains('dark') ? 'none' : 'block';
+});
 
 function filterTx() {
   const q = document.getElementById("search").value.toLowerCase();

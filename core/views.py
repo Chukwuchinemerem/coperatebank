@@ -272,3 +272,24 @@ def admin_users(request):
     from .models import UserProfile
     users = UserProfile.objects.all()
     return render(request, 'core/admin_users.html', {'users': users})
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.utils.crypto import get_random_string
+
+from django.contrib import messages
+from django.shortcuts import redirect
+
+def password_reset(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+            # For demo: set a new random password and show it (in real app, send email)
+            new_password = get_random_string(8)
+            user.password = make_password(new_password)
+            user.save()
+            messages.success(request, f'Your new password is: {new_password} (please change after login)')
+        except User.DoesNotExist:
+            messages.error(request, 'No user found with that email.')
+        return redirect('password_reset')
+    return render(request, 'core/password_reset.html')
