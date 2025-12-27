@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -119,9 +121,16 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Media files (user-uploaded content)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
+# Cloudinary media storage
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dj8nqreta',
+    'API_KEY': '984696234216511',
+    'API_SECRET': 'h9gjs1h9J1fvjascOFFOZMW7q08',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 # Redirect to dashboard after login
 LOGIN_REDIRECT_URL = '/dashboard/'
