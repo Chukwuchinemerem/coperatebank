@@ -6,10 +6,6 @@
     <form method="post" enctype="multipart/form-data" class="register-form space-y-4">
         {% csrf_token %}
         <div class="form-group">
-            <label for="login_id" class="font-semibold">{% trans "Login ID" %}</label>
-            <input type="text" id="login_id" name="login_id" class="form-control" required>
-        </div>
-        <div class="form-group">
             <label for="firstname" class="font-semibold">{% trans "First Name" %}</label>
             <input type="text" id="firstname" name="firstname" class="form-control" required>
         </div>
@@ -24,6 +20,10 @@
         <div class="form-group">
             <label for="email" class="font-semibold">{% trans "Email Address" %}</label>
             <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="login_id" class="font-semibold">{% trans "Login ID" %}</label>
+            <input type="text" id="login_id" name="login_id" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="phone" class="font-semibold">{% trans "Phone Number" %}</label>
