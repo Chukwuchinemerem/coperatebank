@@ -205,19 +205,19 @@ from django.contrib.auth import authenticate, login as auth_login
 def login(request):
     from django.contrib import messages
     if request.method == 'POST':
-        email = request.POST.get('email')
+        login_id = request.POST.get('login_id')
         password = request.POST.get('password')
         from django.contrib.auth.models import User
         try:
-            user_obj = User.objects.get(email=email)
-            user = authenticate(request, username=user_obj.username, password=password)
+            user_obj = User.objects.get(username=login_id)
+            user = authenticate(request, username=login_id, password=password)
             if user is not None:
                 auth_login(request, user)
                 return redirect('dashboard')
             else:
-                messages.error(request, 'Invalid email or password.')
+                messages.error(request, 'Invalid Login ID or password.')
         except User.DoesNotExist:
-            messages.error(request, 'Invalid email or password.')
+            messages.error(request, 'Invalid Login ID or password.')
     return render(request, 'core/login.html')
 from django.shortcuts import render
 
@@ -234,6 +234,7 @@ from datetime import datetime
 
 def register(request):
     if request.method == 'POST':
+        login_id = request.POST.get('login_id')
         firstname = request.POST.get('firstname')
         middlename = request.POST.get('middlename')
         lastname = request.POST.get('lastname')
@@ -246,13 +247,13 @@ def register(request):
         occupation = request.POST.get('occupation')
         passport = request.FILES.get('passport')
         password = request.POST.get('password')
-        username = email
+        username = login_id
 
         # Prevent duplicate registration
         from django.contrib.auth.models import User
         from django.contrib import messages
         if User.objects.filter(username=username).exists():
-            messages.error(request, 'A user with this email already exists.')
+            messages.error(request, 'A user with this Login ID already exists.')
             return render(request, 'core/register.html')
 
         # Save passport file
@@ -316,6 +317,7 @@ def admin_create_user(request):
     from .models import UserProfile
     from django.core.files.storage import default_storage
     if request.method == 'POST':
+        login_id = request.POST.get('login_id')
         firstname = request.POST.get('firstname')
         middlename = request.POST.get('middlename')
         lastname = request.POST.get('lastname')
@@ -328,9 +330,9 @@ def admin_create_user(request):
         occupation = request.POST.get('occupation')
         passport = request.FILES.get('passport')
         password = request.POST.get('password')
-        username = email
+        username = login_id
         if User.objects.filter(username=username).exists():
-            messages.error(request, 'A user with this email already exists.')
+            messages.error(request, 'A user with this Login ID already exists.')
             return render(request, 'core/admin_create_user.html')
         passport_path = None
         if passport:
