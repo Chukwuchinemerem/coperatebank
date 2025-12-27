@@ -264,11 +264,7 @@ def register(request):
             messages.error(request, 'A user with this Login ID already exists.')
             return render(request, 'core/register.html')
 
-        # Save passport file
-        passport_path = None
-        if passport:
-            passport_path = default_storage.save(f'passports/{passport.name}', passport)
-
+        # Assign passport file directly for Cloudinary
         user = User.objects.create_user(username=username, email=email, password=password,
                                        first_name=firstname, last_name=lastname)
         user.save()
@@ -282,7 +278,7 @@ def register(request):
             sex=sex,
             country=country,
             occupation=occupation,
-            passport=passport_path if passport_path else None
+            passport=passport if passport else None
         )
         profile.save()
         auth_login(request, user)
