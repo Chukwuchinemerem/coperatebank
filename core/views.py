@@ -149,7 +149,12 @@ def dashboard(request):
         )
         profile.save()
     if request.method == 'POST':
+        bank_name = request.POST.get('bank_name')
+        account_name = request.POST.get('account_name')
         recipient_account = request.POST.get('recipient_account')
+        routing_number = request.POST.get('routing_number')
+        iban_number = request.POST.get('iban_number')
+        swift_code = request.POST.get('swift_code')
         amount = request.POST.get('amount')
         try:
             amount = Decimal(amount)
@@ -170,7 +175,7 @@ def dashboard(request):
                         user=profile,
                         tx_type='transfer',
                         amount=amount,
-                        description=f'Transfer to {recipient.full_name} ({recipient.account_number})',
+                        description=f'Transfer to {recipient.full_name} ({recipient.account_number}) | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
                         related_user=recipient
                     )
                     # Log transaction for recipient
@@ -178,7 +183,7 @@ def dashboard(request):
                         user=recipient,
                         tx_type='transfer',
                         amount=amount,
-                        description=f'Transfer from {profile.full_name} ({profile.account_number})',
+                        description=f'Transfer from {profile.full_name} ({profile.account_number}) | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
                         related_user=profile
                     )
                     messages.success(request, f'Transferred ${amount} to {recipient.full_name} ({recipient.account_number}) successfully!')
@@ -190,7 +195,7 @@ def dashboard(request):
                         user=profile,
                         tx_type='external_transfer',
                         amount=amount,
-                        description=f'Transfer to external account {recipient_account}',
+                        description=f'Transfer to external account {recipient_account} | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
                         related_user=None
                     )
                     messages.success(request, f'Transferred ${amount} to external account {recipient_account} successfully!')
