@@ -151,15 +151,12 @@ def dashboard(request):
     if request.method == 'POST':
         recipient_account = request.POST.get('recipient_account')
         amount = request.POST.get('amount')
-        transfer_pin = request.POST.get('transfer_pin')
         try:
             amount = Decimal(amount)
             if amount <= 0:
                 messages.error(request, 'Amount must be greater than zero.')
             elif profile.balance < amount:
                 messages.error(request, 'Insufficient balance.')
-            elif not profile.transfer_pin or transfer_pin != profile.transfer_pin:
-                messages.error(request, 'Invalid or missing transfer PIN. Please get your PIN from the admin.')
             else:
                 from .models import Transaction
                 try:

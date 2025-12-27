@@ -18,8 +18,8 @@
         {% csrf_token %}
         <input type="hidden" name="next" value="/dashboard/" />
         <div class="form-group">
-            <label for="username">{% trans "Login ID (Customer ID)" %}</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+            <label for="login_id">{% trans "Login ID (Customer ID)" %}</label>
+            <input type="text" id="login_id" name="login_id" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="password">{% trans "Password (Customer Password)" %}</label>
@@ -28,6 +28,8 @@
         <button type="submit" class="btn-primary btn-block">{% trans "Login" %}</button>
         <div style="text-align:right;margin-top:10px;">
           <a href="{% url 'password_reset' %}" class="text-blue-600 hover:underline font-semibold">Forgot password?</a>
+          <br>
+          <a href="{% url 'password_change' %}" class="text-blue-600 hover:underline font-semibold">Change password</a>
         </div>
     </form>
 </div>

@@ -12,6 +12,5 @@ urlpatterns = [
     path('set-language/', set_language, name='set_language'),
 ]
 
-# Serve media files in development and on Render
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve media files in development and production (Render)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
