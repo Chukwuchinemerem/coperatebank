@@ -132,8 +132,8 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'h9gjs1h9J1fvjascOFFOZMW7q08'),
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Redirect to dashboard after login
 LOGIN_REDIRECT_URL = '/dashboard/'

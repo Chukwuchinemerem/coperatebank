@@ -241,49 +241,17 @@ import os
 from datetime import datetime
 
 def register(request):
+    from .forms import RegisterForm
     if request.method == 'POST':
-        login_id = request.POST.get('login_id')
-        firstname = request.POST.get('firstname')
-        middlename = request.POST.get('middlename')
-        lastname = request.POST.get('lastname')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        address = request.POST.get('address')
-        dob = request.POST.get('dob')
-        sex = request.POST.get('sex')
-        country = request.POST.get('country')
-        occupation = request.POST.get('occupation')
-        passport = request.FILES.get('passport')
-        password = request.POST.get('password')
-        username = login_id
-
-        # Prevent duplicate registration
-        from django.contrib.auth.models import User
-        from django.contrib import messages
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'A user with this Login ID already exists.')
-            return render(request, 'core/register.html')
-
-        # Assign passport file directly for Cloudinary
-        user = User.objects.create_user(username=username, email=email, password=password,
-                                       first_name=firstname, last_name=lastname)
-        user.save()
-        full_name = f"{firstname} {middlename} {lastname}".strip()
-        profile = UserProfile.objects.create(
-            user=user,
-            full_name=full_name,
-            phone=phone,
-            address=address,
-            dob=dob,
-            sex=sex,
-            country=country,
-            occupation=occupation,
-            passport=passport if passport else None
-        )
-        profile.save()
-        auth_login(request, user)
-        return redirect('dashboard')
-    return render(request, 'core/register.html')
+        form = RegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save()
+            from django.contrib.auth import login as auth_login
+            auth_login(request, profile.user)
+            return redirect('dashboard')
+    else:
+        form = RegisterForm()
+    return render(request, 'core/register.html', {'form': form})
 from django.contrib.admin.views.decorators import staff_member_required
 
 @staff_member_required
