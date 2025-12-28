@@ -27,9 +27,13 @@ urlpatterns = [
     path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='core/password_change_done.html'), name='password_change_done'),
 ]
 
-# Serve media files correctly for both DEBUG and production (Render Disk)
+# Serve media files for both DEBUG and production
 if settings.DEBUG:
+    # Local development
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:
-    # For production with Render Disk
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Production: Serve Render Disk media
+    from django.views.static import serve
+    urlpatterns += [
+        path('media/<path:path>/', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]
