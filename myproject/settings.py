@@ -1,4 +1,3 @@
-
 import os
 from pathlib import Path
 import dj_database_url
@@ -22,7 +21,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'primepips-opmv.onrender.com',
     'www.primepips-opmv.onrender.com',
-    
 ]
 
 INSTALLED_APPS = [
@@ -123,19 +121,34 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# -------------------
+# Media / Render Disk Setup
+# -------------------
 
+# Render Disk path
+RENDER_DISK_PATH = '/disk/media/'
 
+# Ensure folder exists
+if not os.path.exists(RENDER_DISK_PATH):
+    os.makedirs(RENDER_DISK_PATH)
 
+# Use Render Disk for media files if DEBUG is False (production)
+if not DEBUG:
+    MEDIA_ROOT = RENDER_DISK_PATH
+    MEDIA_URL = '/media/'
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+else:
+    # Local / Debug fallback
+    MEDIA_ROOT = BASE_DIR / 'media'
+    MEDIA_URL = '/media/'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Cloudinary media storage (for Render free tier and production)
+# Cloudinary (fallback / optional)
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dj8nqreta'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY', '984696234216511'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'h9gjs1h9J1fvjascOFFOZMW7q08'),
 }
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # Redirect to dashboard after login
 LOGIN_REDIRECT_URL = '/dashboard/'
