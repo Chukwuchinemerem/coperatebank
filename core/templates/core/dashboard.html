@@ -137,13 +137,32 @@
             <input id="search" onkeyup="filterTx()" placeholder="Search..." class="border px-3 py-2 rounded-lg dark:bg-slate-700" data-i18n="search">
           </div>
           <ul id="txList" class="space-y-3 text-sm">
-            <!-- Example transactions, replace with Django context if needed -->
-            <li class="tx-item">ATM Withdrawal - $200</li>
-            <li class="tx-item">Salary Credit +$3,000</li>
-            <li class="tx-item">Online Purchase - $120</li>
-            <li class="tx-item">Transfer Received +$800</li>
+            {% if transactions and transactions.count > 0 %}
+              {% for tx in transactions %}
+                <li class="tx-item">
+                  <span class="font-semibold">{{ tx.get_tx_type_display }}:</span>
+                  {% if tx.tx_type == 'deposit' %}
+                    +${{ tx.amount|floatformat:2 }}
+                  {% elif tx.tx_type == 'withdrawal' %}
+                    -${{ tx.amount|floatformat:2 }}
+                  {% elif tx.tx_type == 'transfer' %}
+                    {% if tx.related_user %}
+                      {% if tx.amount > 0 %}To {{ tx.related_user.full_name }}{% else %}From {{ tx.related_user.full_name }}{% endif %}
+                    {% endif %}
+                    -${{ tx.amount|floatformat:2 }}
+                  {% elif tx.tx_type == 'external_transfer' %}
+                    -${{ tx.amount|floatformat:2 }} (External)
+                  {% else %}
+                    ${{ tx.amount|floatformat:2 }}
+                  {% endif %}
+                  <span class="ml-2 text-xs text-slate-400">{{ tx.timestamp|date:'Y-m-d H:i' }}</span>
+                  <div class="text-xs text-slate-500">{{ tx.description }}</div>
+                </li>
+              {% endfor %}
+            {% else %}
+              <li id="noTxMsg" class="text-center text-slate-400 mt-6" data-i18n="no_transactions">No transactions yet.</li>
+            {% endif %}
           </ul>
-          <div id="noTxMsg" class="text-center text-slate-400 mt-6 hidden" data-i18n="no_transactions">No transactions yet.</div>
         </div>
       </div>
     </main>

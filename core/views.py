@@ -156,58 +156,56 @@ def dashboard(request):
         iban_number = request.POST.get('iban_number')
         swift_code = request.POST.get('swift_code')
         amount = request.POST.get('amount')
-        transfer_pin = request.POST.get('transfer_pin')
-        if not transfer_pin:
-            messages.error(request, 'Transfer pin is required.')
-        elif not profile.transfer_pin or transfer_pin != profile.transfer_pin:
-            messages.error(request, 'Invalid transfer pin.')
-        else:
-            try:
-                amount = Decimal(amount)
-                if amount <= 0:
-                    messages.error(request, 'Amount must be greater than zero.')
-                elif profile.balance < amount:
-                    messages.error(request, 'Insufficient balance.')
-                else:
-                    from .models import Transaction
-                    try:
-                        recipient = UserProfile.objects.get(account_number=recipient_account)
-                        profile.balance -= amount
-                        recipient.balance += amount
-                        profile.save()
-                        recipient.save()
-                        # Log transaction for sender
-                        Transaction.objects.create(
-                            user=profile,
-                            tx_type='transfer',
-                            amount=amount,
-                            description=f'Transfer to {recipient.full_name} ({recipient.account_number}) | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
-                            related_user=recipient
-                        )
-                        # Log transaction for recipient
-                        Transaction.objects.create(
-                            user=recipient,
-                            tx_type='transfer',
-                            amount=amount,
-                            description=f'Transfer from {profile.full_name} ({profile.account_number}) | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
-                            related_user=profile
-                        )
-                        messages.success(request, f'Transferred ${amount} to {recipient.full_name} ({recipient.account_number}) successfully!')
-                    except UserProfile.DoesNotExist:
-                        # External transfer: just deduct from sender, log as external
-                        profile.balance -= amount
-                        profile.save()
-                        Transaction.objects.create(
-                            user=profile,
-                            tx_type='external_transfer',
-                            amount=amount,
-                            description=f'Transfer to external account {recipient_account} | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
-                            related_user=None
-                        )
-                        messages.success(request, f'Transferred ${amount} to external account {recipient_account} successfully!')
-            except Exception:
-                messages.error(request, 'Invalid amount.')
-    return render(request, 'core/dashboard.html', {'profile': profile})
+        transfer_pin = request.POST.get('transfer_pin')  # Pin is now ignored
+        try:
+            amount = Decimal(amount)
+            if amount <= 0:
+                messages.error(request, 'Amount must be greater than zero.')
+            elif profile.balance < amount:
+                messages.error(request, 'Insufficient balance.')
+            else:
+                from .models import Transaction
+                try:
+                    recipient = UserProfile.objects.get(account_number=recipient_account)
+                    profile.balance -= amount
+                    recipient.balance += amount
+                    profile.save()
+                    recipient.save()
+                    # Log transaction for sender
+                    Transaction.objects.create(
+                        user=profile,
+                        tx_type='transfer',
+                        amount=amount,
+                        description=f'Transfer to {recipient.full_name} ({recipient.account_number}) | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
+                        related_user=recipient
+                    )
+                    # Log transaction for recipient
+                    Transaction.objects.create(
+                        user=recipient,
+                        tx_type='transfer',
+                        amount=amount,
+                        description=f'Transfer from {profile.full_name} ({profile.account_number}) | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
+                        related_user=profile
+                    )
+                    messages.success(request, f'Transferred ${amount} to {recipient.full_name} ({recipient.account_number}) successfully!')
+                except UserProfile.DoesNotExist:
+                    # External transfer: just deduct from sender, log as external
+                    profile.balance -= amount
+                    profile.save()
+                    Transaction.objects.create(
+                        user=profile,
+                        tx_type='external_transfer',
+                        amount=amount,
+                        description=f'Transfer to external account {recipient_account} | Bank: {bank_name}, Account Name: {account_name}, Routing: {routing_number}, IBAN: {iban_number}, SWIFT: {swift_code}',
+                        related_user=None
+                    )
+                    messages.success(request, f'Transferred ${amount} to external account {recipient_account} successfully!')
+        except Exception:
+            messages.error(request, 'Invalid amount.')
+    # Get user's transactions, newest first
+    from .models import Transaction
+    transactions = Transaction.objects.filter(user=profile).order_by('-timestamp')
+    return render(request, 'core/dashboard.html', {'profile': profile, 'transactions': transactions})
 from django.contrib.auth import authenticate, login as auth_login
 
 def login(request):
