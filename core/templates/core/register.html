@@ -2,6 +2,15 @@
 {% block content %}
 <div class="register-container">
     <h2 class="register-title">{% trans "CO-OPERATIVE FINANCE BANK" %}</h2>
+    {% if messages %}
+      <div class="form-group">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" style="color: #fff; background: #e53e3e; padding: 10px; border-radius: 6px; margin-bottom: 15px;">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
     <form method="post" enctype="multipart/form-data" class="register-form">
         {% csrf_token %}
         <div class="form-group">

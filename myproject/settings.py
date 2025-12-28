@@ -122,11 +122,14 @@ STATIC_ROOT = BASE_DIR / 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Cloudinary media storage
+
+
+
+# Cloudinary media storage (for Render free tier and production)
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dj8nqreta',
-    'API_KEY': '984696234216511',
-    'API_SECRET': 'h9gjs1h9J1fvjascOFFOZMW7q08',
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dj8nqreta'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '984696234216511'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'h9gjs1h9J1fvjascOFFOZMW7q08'),
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # MEDIA_URL = '/media/'
