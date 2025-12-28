@@ -157,7 +157,11 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 # Runtime Disk Folder Creation
 # -------------------
 # Create /disk/media at runtime to ensure folder exists
+# THIS WILL ONLY RUN WHEN APP IS LIVE, NOT DURING BUILD
 if not DEBUG:
-    from pathlib import Path
-    disk_path = Path(RENDER_DISK_PATH)
-    disk_path.mkdir(parents=True, exist_ok=True)
+    try:
+        from pathlib import Path
+        disk_path = Path(RENDER_DISK_PATH)
+        disk_path.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        pass  # If disk isn't mounted yet, ignore error at startup
