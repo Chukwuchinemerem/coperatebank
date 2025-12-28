@@ -126,12 +126,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Cloudinary media storage (for Render free tier and production)
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dj8nqreta'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '984696234216511'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'h9gjs1h9J1fvjascOFFOZMW7q08'),
-}
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
