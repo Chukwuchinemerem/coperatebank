@@ -1,8 +1,9 @@
-
 from django.urls import path
 from . import views
 from django.views.i18n import set_language
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -25,3 +26,14 @@ urlpatterns = [
     path('password-change/', auth_views.PasswordChangeView.as_view(template_name='core/password_change.html'), name='password_change'),
     path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='core/password_change_done.html'), name='password_change_done'),
 ]
+
+# Serve media files for both DEBUG and production
+if settings.DEBUG:
+    # Local development
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # Production: Serve Render Disk media
+    from django.views.static import serve
+    urlpatterns += [
+        path('media/<path:path>/', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]
