@@ -20,6 +20,8 @@ ALLOWED_HOSTS = [
     'www.cooperatefinance.com',
     'cooperatefinance.com',
     '127.0.0.1',
+    'primepips-opmv.onrender.com',
+    'www.primepips-opmv.onrender.com',
     
 ]
 
