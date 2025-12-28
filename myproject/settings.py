@@ -128,9 +128,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Render Disk path
 RENDER_DISK_PATH = '/disk/media/'
 
-# Ensure folder exists
-if not os.path.exists(RENDER_DISK_PATH):
-    os.makedirs(RENDER_DISK_PATH)
+# --- Commented out to prevent build failure ---
+# if not os.path.exists(RENDER_DISK_PATH):
+#     os.makedirs(RENDER_DISK_PATH)
 
 # Use Render Disk for media files if DEBUG is False (production)
 if not DEBUG:
@@ -152,3 +152,12 @@ CLOUDINARY_STORAGE = {
 
 # Redirect to dashboard after login
 LOGIN_REDIRECT_URL = '/dashboard/'
+
+# -------------------
+# Runtime Disk Folder Creation
+# -------------------
+# Create /disk/media at runtime to ensure folder exists
+if not DEBUG:
+    from pathlib import Path
+    disk_path = Path(RENDER_DISK_PATH)
+    disk_path.mkdir(parents=True, exist_ok=True)
