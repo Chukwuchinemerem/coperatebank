@@ -27,5 +27,9 @@ urlpatterns = [
     path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='core/password_change_done.html'), name='password_change_done'),
 ]
 
-# Serve media files from Render Disk
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve media files correctly for both DEBUG and production (Render Disk)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # For production with Render Disk
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
