@@ -227,8 +227,6 @@
 </head>
 
 <body class="bg-gray-200 flex justify-center">
-<!-- Google Translate widget container (visible for debugging) -->
-<div id="google_translate_element" style="position:fixed;top:10px;right:10px;z-index:9999;background:#fff;padding:8px;border-radius:8px;"></div>
 
 
 <!-- PHONE CONTAINER -->
@@ -247,16 +245,7 @@
       </div>
       <!-- Sleek Toggle Right -->
       <div class="relative">
-        <button class="bank-menu-toggle" id="bankMenuBtn" aria-label="Open menu" onclick="document.getElementById('bankMenuDropdown').classList.toggle('hidden')">☰</button>
-        <div id="bankMenuDropdown" class="bank-menu-dropdown hidden">
-          <a href="/" class="bank-menu-link" data-i18n="home">Home</a>
-          <a href="/about" class="bank-menu-link" data-i18n="about">About Us</a>
-          <a href="/login" class="bank-menu-link" data-i18n="sign_in">Sign In</a>
-          <a href="/register" class="bank-menu-link" data-i18n="register">Register</a>
-          <a href="/faq" class="bank-menu-link" data-i18n="faq">FAQ</a>
-          <a href="/privacy" class="bank-menu-link" data-i18n="privacy">Privacy Policy</a>
-          <a href="/terms" class="bank-menu-link" data-i18n="terms">Terms & Conditions</a>
-        </div>
+        <!-- Toggle menu removed as requested -->
       </div>
     </div>
     <!-- Mobile Menu -->
@@ -304,10 +293,11 @@
 
     <!-- Buttons -->
     <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-            <!-- Only show Select Language button -->
-            <a href="/select-language/" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center" data-i18n="select_language">
-              Select Language
-            </a>
+                        <!-- Select Language button restored -->
+                        <a href="/select-language/" class="flex-1 min-w-[120px] px-8 py-3 bg-white text-blue-900 font-semibold rounded-xl shadow-lg border-2 border-blue-900 transform transition-all duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 hover:shadow-2xl text-center" data-i18n="select_language">
+                          Select Language
+                        </a>
+            <!-- Select Language button removed as requested -->
       <!-- Sign In Button -->
       <a href="/login" class="flex-1 min-w-[120px] px-8 py-3 bg-blue-900 text-white font-semibold rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl text-center" data-i18n="sign_in">
         Sign In
