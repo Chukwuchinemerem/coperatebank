@@ -211,17 +211,10 @@
                 e.preventDefault();
                 var lang = btn.getAttribute('data-lang');
                 localStorage.setItem('lang', lang);
-                // Try to trigger Google Translate immediately if widget is present
-                var select = document.querySelector('select.goog-te-combo');
-                var googleLang = langMap[lang] || 'en';
-                if (select) {
-                    select.value = googleLang;
-                    select.dispatchEvent(new Event('input', { bubbles: true }));
-                    select.dispatchEvent(new Event('change', { bubbles: true }));
-                }
+                setGoogleTranslate(lang);
                 setTimeout(function() {
                     window.location.href = '/';
-                }, 200); // Slight delay to allow translation to start
+                }, 400);
             });
         });
     </script>
