@@ -137,84 +137,25 @@
         </button>
     </div>
     <script>
-                // Helper to trigger Google Translate reliably
-                function setGoogleTranslate(lang) {
-                    var googleLang = langMap[lang] || 'en';
-                    function trySet() {
-                        var select = document.querySelector('select.goog-te-combo');
-                        if (select) {
-                            select.value = googleLang;
-                            select.dispatchEvent(new Event('input', { bubbles: true }));
-                            select.dispatchEvent(new Event('change', { bubbles: true }));
-                            return true;
-                        }
-                        return false;
-                    }
-                    // Try immediately, then retry a few times if widget is not ready
-                    if (!trySet()) {
-                        var tries = 0;
-                        var interval = setInterval(function() {
-                            tries++;
-                            if (trySet() || tries > 10) clearInterval(interval);
-                        }, 300);
-                    }
-                }
-
-                // Dropdown language select handler
-                document.getElementById('manual-lang-select').addEventListener('change', function() {
-                    var lang = this.value;
-                    localStorage.setItem('lang', lang);
-                    setGoogleTranslate(lang);
-                    setTimeout(function() {
-                        window.location.href = '/';
-                    }, 400);
-                });
-
-                // On page load, sync dropdown with localStorage/lang
-                document.addEventListener('DOMContentLoaded', function() {
-                    var lang = localStorage.getItem('lang');
-                    if (lang) {
-                        var dropdown = document.getElementById('manual-lang-select');
-                        if (dropdown) dropdown.value = lang;
-                    }
-                });
-        // Map language codes to Google Translate dropdown values
+        // Map language codes to Google Translate cookie values
         const langMap = {
-            en: 'en',
-            fr: 'fr',
-            es: 'es',
-            pt: 'pt',
-            de: 'de',
-            ja: 'ja',
-            hi: 'hi',
-            id: 'id',
-            nl: 'nl',
-            ko: 'ko',
-            tr: 'tr',
-            ru: 'ru',
-            zh: 'zh-CN',
-            'zh-TW': 'zh-TW',
-            ar: 'ar',
-            pl: 'pl',
-            it: 'it',
-            ky: 'ky'
+            en: 'en', fr: 'fr', es: 'es', pt: 'pt', de: 'de', ja: 'ja', hi: 'hi', id: 'id', nl: 'nl', ko: 'ko', tr: 'tr', ru: 'ru', zh: 'zh-CN', 'zh-TW': 'zh-TW', ar: 'ar', pl: 'pl', it: 'it', ky: 'ky'
         };
 
-        // Ensure all 18 flag languages are present in includedLanguages and langMap
-        // Flags: en, fr, es, pt, de, ja, hi, id, nl, ko, tr, ru, zh, zh-TW, ar, pl, it, ky
-        // includedLanguages: en,fr,es,pt,de,ja,hi,id,nl,ko,tr,ru,zh,zh-TW,ar,pl,it,ky
-        // langMap: all above
-        };
-        // Flag click sets language, triggers Google Translate, and redirects
+        // Set Google Translate cookie and reload page
+        function setLanguageCookie(lang) {
+            var googleLang = langMap[lang] || 'en';
+            document.cookie = 'googtrans=/en/' + googleLang + ';path=/';
+            localStorage.setItem('lang', lang);
+            location.reload();
+        }
+
+        // Flag click sets language via cookie and reloads
         document.querySelectorAll('.flag-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 var lang = btn.getAttribute('data-lang');
-                localStorage.setItem('lang', lang);
-                setGoogleTranslate(lang);
-                setTimeout(function() {
-                    window.location.href = '/';
-                }, 400);
+                setLanguageCookie(lang);
             });
         });
     </script>
