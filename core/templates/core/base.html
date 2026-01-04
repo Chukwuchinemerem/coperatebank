@@ -1,3 +1,24 @@
+    <!-- Language Flags (Global) -->
+    <div class="flag-grid" style="max-width:600px;margin:1.5rem auto 0 auto;">
+        <button class="flag-btn" data-lang="en"><img class="flag-img" src="https://flagcdn.com/48x36/gb.png" alt="English flag"><span class="flag-label">English</span></button>
+        <button class="flag-btn" data-lang="fr"><img class="flag-img" src="https://flagcdn.com/48x36/fr.png" alt="French flag"><span class="flag-label">Français</span></button>
+        <button class="flag-btn" data-lang="es"><img class="flag-img" src="https://flagcdn.com/48x36/es.png" alt="Spanish flag"><span class="flag-label">Español</span></button>
+        <button class="flag-btn" data-lang="pt"><img class="flag-img" src="https://flagcdn.com/48x36/pt.png" alt="Portuguese flag"><span class="flag-label">Português</span></button>
+        <button class="flag-btn" data-lang="de"><img class="flag-img" src="https://flagcdn.com/48x36/de.png" alt="German flag"><span class="flag-label">Deutsch</span></button>
+        <button class="flag-btn" data-lang="ja"><img class="flag-img" src="https://flagcdn.com/48x36/jp.png" alt="Japanese flag"><span class="flag-label">日本語</span></button>
+        <button class="flag-btn" data-lang="hi"><img class="flag-img" src="https://flagcdn.com/48x36/in.png" alt="Hindi flag"><span class="flag-label">हिन्दी</span></button>
+        <button class="flag-btn" data-lang="id"><img class="flag-img" src="https://flagcdn.com/48x36/id.png" alt="Indonesian flag"><span class="flag-label">Bahasa Indonesia</span></button>
+        <button class="flag-btn" data-lang="nl"><img class="flag-img" src="https://flagcdn.com/48x36/nl.png" alt="Dutch flag"><span class="flag-label">Nederlands</span></button>
+        <button class="flag-btn" data-lang="ko"><img class="flag-img" src="https://flagcdn.com/48x36/kr.png" alt="Korean flag"><span class="flag-label">한국어</span></button>
+        <button class="flag-btn" data-lang="tr"><img class="flag-img" src="https://flagcdn.com/48x36/tr.png" alt="Turkish flag"><span class="flag-label">Türkçe</span></button>
+        <button class="flag-btn" data-lang="ru"><img class="flag-img" src="https://flagcdn.com/48x36/ru.png" alt="Russian flag"><span class="flag-label">Русский</span></button>
+        <button class="flag-btn" data-lang="zh"><img class="flag-img" src="https://flagcdn.com/48x36/cn.png" alt="Chinese flag"><span class="flag-label">中文</span></button>
+        <button class="flag-btn" data-lang="zh-TW"><img class="flag-img" src="https://flagcdn.com/48x36/tw.png" alt="Taiwan flag"><span class="flag-label">繁體中文</span></button>
+        <button class="flag-btn" data-lang="ar"><img class="flag-img" src="https://flagcdn.com/48x36/sa.png" alt="Arabic flag"><span class="flag-label">العربية</span></button>
+        <button class="flag-btn" data-lang="pl"><img class="flag-img" src="https://flagcdn.com/48x36/pl.png" alt="Polish flag"><span class="flag-label">Polski</span></button>
+        <button class="flag-btn" data-lang="it"><img class="flag-img" src="https://flagcdn.com/48x36/it.png" alt="Italian flag"><span class="flag-label">Italiano</span></button>
+        <button class="flag-btn" data-lang="ky"><img class="flag-img" src="https://flagcdn.com/48x36/kg.png" alt="Kyrgyz flag"><span class="flag-label">Кыргызча</span></button>
+    </div>
 <!DOCTYPE html>
 {% load static %}
 {% load i18n %}
@@ -14,7 +35,7 @@
                 </script>
                 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
             <!-- Google Translate widget container -->
-            <div id="google_translate_element" style="text-align:right; margin: 1rem 2rem 0 0;"></div>
+            <div id="google_translate_element" style="text-align:right; margin: 1rem 2rem 0 0; z-index:9999;"></div>
         <meta charset="UTF-8">
         <title>{% trans "Co-Operative Finance" %}</title>
         <link rel="stylesheet" href="/static/core/css/style.css">
@@ -22,24 +43,24 @@
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
         <!-- Custom Animations -->
         <style>
-                /* Google Translate select custom size */
-                #google_translate_element select.goog-te-combo {
-                    width: 220px !important;
-                    height: 22px !important;
-                    min-height: 22px !important;
-                    max-height: 26px !important;
-                    font-size: 15px !important;
-                    border-radius: 5px !important;
-                    border: 1px solid #d1d5db !important;
-                    padding: 2px 8px !important;
-                    background: #f9fafb !important;
-                    color: #222 !important;
-                    transition: border 0.2s !important;
-                }
-                #google_translate_element select.goog-te-combo:focus {
-                    border: 1.5px solid #2563eb !important;
-                    outline: none !important;
-                }
+            /* Google Translate select custom size */
+            #google_translate_element select.goog-te-combo {
+                width: 220px !important;
+                height: 22px !important;
+                min-height: 22px !important;
+                max-height: 26px !important;
+                font-size: 15px !important;
+                border-radius: 5px !important;
+                border: 1px solid #d1d5db !important;
+                padding: 2px 8px !important;
+                background: #f9fafb !important;
+                color: #222 !important;
+                transition: border 0.2s !important;
+            }
+            #google_translate_element select.goog-te-combo:focus {
+                border: 1.5px solid #2563eb !important;
+                outline: none !important;
+            }
         @keyframes ticker {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -145,6 +166,48 @@
     </footer>
     </body>
     <script>
+        // --- Language Flag Logic (Global) ---
+        (function() {
+            const langMap = {
+                en: 'en', fr: 'fr', es: 'es', pt: 'pt', de: 'de', ja: 'ja', hi: 'hi', id: 'id', nl: 'nl', ko: 'ko', tr: 'tr', ru: 'ru', zh: 'zh-CN', 'zh-TW': 'zh-TW', ar: 'ar', pl: 'pl', it: 'it', ky: 'ky'
+            };
+            function getCurrentLang() {
+                const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
+                if (match) return match[1];
+                return localStorage.getItem('lang') || 'en';
+            }
+            // On flag click, set cookie, localStorage, and redirect to homepage
+            document.querySelectorAll('.flag-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var lang = btn.getAttribute('data-lang');
+                    var googleLang = langMap[lang] || 'en';
+                    document.cookie = 'googtrans=/en/' + googleLang + ';path=/';
+                    localStorage.setItem('lang', lang);
+                    window.location.href = '/';
+                });
+            });
+            // Highlight active flag
+            const currentLang = getCurrentLang();
+            document.querySelectorAll('.flag-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === currentLang) {
+                    btn.classList.add('lang-active');
+                } else {
+                    btn.classList.remove('lang-active');
+                }
+            });
+            // On DOMContentLoaded, if a language is set, try to update Google Translate dropdown
+            document.addEventListener('DOMContentLoaded', function() {
+                var lang = getCurrentLang();
+                var googleLang = langMap[lang] || 'en';
+                var select = document.querySelector('select.goog-te-combo');
+                if (select && select.value !== googleLang) {
+                    select.value = googleLang;
+                    select.dispatchEvent(new Event('input', { bubbles: true }));
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            });
+        })();
     // Language Dropdown Functionality
     const langBtn = document.getElementById('langDropdownBtn');
     const langDropdown = document.getElementById('langDropdown');
