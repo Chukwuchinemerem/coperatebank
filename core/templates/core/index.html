@@ -243,15 +243,42 @@
           <span id="coop-bank-title" class="font-bold text-base md:text-lg tracking-wider text-white drop-shadow-sm" style="letter-spacing:1.2px;" data-i18n="bank_title">CO-OPERATIVE FINANCE BANK</span>
         </div>
       </div>
-      <!-- Sleek Toggle Right -->
-      <div class="relative">
-        <!-- Toggle menu removed as requested -->
+      <!-- Sleek Toggle Right: Hamburger menu for mobile -->
+      <div class="relative block md:hidden">
+        <button id="bank-menu-toggle" class="bank-menu-toggle" aria-label="Open menu">
+          <span>&#9776;</span>
+        </button>
+        <div id="bank-menu-dropdown" class="bank-menu-dropdown hidden">
+          <a href="/" class="bank-menu-link" data-i18n="home">Home</a>
+          <a href="/login" class="bank-menu-link" data-i18n="sign_in">Sign In</a>
+          <a href="/register" class="bank-menu-link" data-i18n="register">Register</a>
+          <a href="/about" class="bank-menu-link" data-i18n="about_us">About Us</a>
+          <a href="/faq" class="bank-menu-link" data-i18n="faq">FAQ</a>
+        </div>
       </div>
     </div>
     <!-- Mobile Menu -->
-    <div id="menu" class="hidden px-4 pb-4 text-sm bg-bankblueLight">
-      <!-- Sleek menu replaced by new dropdown above -->
-    </div>
+    <!-- (Old mobile menu placeholder removed; now handled by hamburger menu above) -->
+
+  <!-- Hamburger menu JS: toggles dropdown on mobile -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggle = document.getElementById('bank-menu-toggle');
+      var dropdown = document.getElementById('bank-menu-dropdown');
+      if (toggle && dropdown) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('hidden');
+        });
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!dropdown.contains(e.target) && !toggle.contains(e.target)) {
+            dropdown.classList.add('hidden');
+          }
+        });
+      }
+    });
+  </script>
   </header>
 
   <!-- ================= CRYPTO TICKER ================= -->
