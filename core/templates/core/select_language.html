@@ -50,9 +50,12 @@
     </style>
     <!-- Google Translate widget -->
     <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,fr,es,pt,ko,tr,ru,zh,pl,it,ky'}, 'google_translate_element');
-      }
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,fr,es,pt,ko,tr,ru,zh,zh-TW,ar,pl,it,ky,de,ja,hi,id,nl'
+                }, 'google_translate_element');
+            }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
@@ -76,6 +79,26 @@
             <img class="flag-img" src="https://flagcdn.com/48x36/pt.png" alt="Portuguese flag">
             <span class="flag-label">Português</span>
         </button>
+        <button class="flag-btn" data-lang="de">
+            <img class="flag-img" src="https://flagcdn.com/48x36/de.png" alt="German flag">
+            <span class="flag-label">Deutsch</span>
+        </button>
+        <button class="flag-btn" data-lang="ja">
+            <img class="flag-img" src="https://flagcdn.com/48x36/jp.png" alt="Japanese flag">
+            <span class="flag-label">日本語</span>
+        </button>
+        <button class="flag-btn" data-lang="hi">
+            <img class="flag-img" src="https://flagcdn.com/48x36/in.png" alt="Hindi flag">
+            <span class="flag-label">हिन्दी</span>
+        </button>
+        <button class="flag-btn" data-lang="id">
+            <img class="flag-img" src="https://flagcdn.com/48x36/id.png" alt="Indonesian flag">
+            <span class="flag-label">Bahasa Indonesia</span>
+        </button>
+        <button class="flag-btn" data-lang="nl">
+            <img class="flag-img" src="https://flagcdn.com/48x36/nl.png" alt="Dutch flag">
+            <span class="flag-label">Nederlands</span>
+        </button>
         <button class="flag-btn" data-lang="ko">
             <img class="flag-img" src="https://flagcdn.com/48x36/kr.png" alt="Korean flag">
             <span class="flag-label">한국어</span>
@@ -92,6 +115,14 @@
             <img class="flag-img" src="https://flagcdn.com/48x36/cn.png" alt="Chinese flag">
             <span class="flag-label">中文</span>
         </button>
+        <button class="flag-btn" data-lang="zh-TW">
+            <img class="flag-img" src="https://flagcdn.com/48x36/tw.png" alt="Taiwan flag">
+            <span class="flag-label">繁體中文</span>
+        </button>
+        <button class="flag-btn" data-lang="ar">
+            <img class="flag-img" src="https://flagcdn.com/48x36/sa.png" alt="Arabic flag">
+            <span class="flag-label">العربية</span>
+        </button>
         <button class="flag-btn" data-lang="pl">
             <img class="flag-img" src="https://flagcdn.com/48x36/pl.png" alt="Polish flag">
             <span class="flag-label">Polski</span>
@@ -106,19 +137,73 @@
         </button>
     </div>
     <script>
+                // Helper to trigger Google Translate reliably
+                function setGoogleTranslate(lang) {
+                    var googleLang = langMap[lang] || 'en';
+                    function trySet() {
+                        var select = document.querySelector('select.goog-te-combo');
+                        if (select) {
+                            select.value = googleLang;
+                            select.dispatchEvent(new Event('input', { bubbles: true }));
+                            select.dispatchEvent(new Event('change', { bubbles: true }));
+                            return true;
+                        }
+                        return false;
+                    }
+                    // Try immediately, then retry a few times if widget is not ready
+                    if (!trySet()) {
+                        var tries = 0;
+                        var interval = setInterval(function() {
+                            tries++;
+                            if (trySet() || tries > 10) clearInterval(interval);
+                        }, 300);
+                    }
+                }
+
+                // Dropdown language select handler
+                document.getElementById('manual-lang-select').addEventListener('change', function() {
+                    var lang = this.value;
+                    localStorage.setItem('lang', lang);
+                    setGoogleTranslate(lang);
+                    setTimeout(function() {
+                        window.location.href = '/';
+                    }, 400);
+                });
+
+                // On page load, sync dropdown with localStorage/lang
+                document.addEventListener('DOMContentLoaded', function() {
+                    var lang = localStorage.getItem('lang');
+                    if (lang) {
+                        var dropdown = document.getElementById('manual-lang-select');
+                        if (dropdown) dropdown.value = lang;
+                    }
+                });
         // Map language codes to Google Translate dropdown values
         const langMap = {
             en: 'en',
             fr: 'fr',
             es: 'es',
             pt: 'pt',
+            de: 'de',
+            ja: 'ja',
+            hi: 'hi',
+            id: 'id',
+            nl: 'nl',
             ko: 'ko',
             tr: 'tr',
             ru: 'ru',
             zh: 'zh-CN',
+            'zh-TW': 'zh-TW',
+            ar: 'ar',
             pl: 'pl',
             it: 'it',
             ky: 'ky'
+        };
+
+        // Ensure all 18 flag languages are present in includedLanguages and langMap
+        // Flags: en, fr, es, pt, de, ja, hi, id, nl, ko, tr, ru, zh, zh-TW, ar, pl, it, ky
+        // includedLanguages: en,fr,es,pt,de,ja,hi,id,nl,ko,tr,ru,zh,zh-TW,ar,pl,it,ky
+        // langMap: all above
         };
         // Flag click sets language, triggers Google Translate, and redirects
         document.querySelectorAll('.flag-btn').forEach(btn => {
