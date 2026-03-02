@@ -10,6 +10,7 @@ class UserProfileInline(admin.StackedInline):
 	verbose_name_plural = 'Profile'
 	fk_name = 'user'
 	fields = ('full_name', 'phone', 'address', 'dob', 'sex', 'country', 'occupation', 'passport', 'account_number', 'balance', 'is_authorized', 'pending_transfer', 'transfer_pin', 'is_frozen')
+	extra = 0
 	readonly_fields = ('account_number',)
 
 	def get_field_queryset(self, db, db_field, request):
@@ -18,6 +19,21 @@ class UserProfileInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
 	inlines = (UserProfileInline,)
 	list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
+	# Make all user fields editable in admin
+	fieldsets = (
+		(None, {'fields': ('username', 'password')}),
+		('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
+		('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+		('Important dates', {'fields': ('last_login', 'date_joined')}),
+	)
+	add_fieldsets = (
+		(None, {
+			'classes': ('wide',),
+			'fields': ('username', 'email', 'first_name', 'last_name', 'password1', 'password2'),
+		}),
+	)
+	search_fields = ('username', 'email', 'first_name', 'last_name')
+	ordering = ('username',)
 
 	def get_inline_instances(self, request, obj=None):
 		if not obj:
