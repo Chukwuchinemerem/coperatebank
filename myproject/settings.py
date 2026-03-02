@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [
     'cooperatefinance.com',
     '127.0.0.1',
     'primepips-opmv.onrender.com',
-    'www.primepips-opmv.onrender.com',
+    'www.cooperativefinancebank.onrender.com',
 ]
 
 INSTALLED_APPS = [
