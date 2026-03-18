@@ -307,8 +307,8 @@ def admin_create_user(request):
         passport_path = None
         if passport:
             passport_path = default_storage.save(f'passports/{passport.name}', passport)
-        user = User.objects.create_user(username=username, email=email, password=password,
-                                       first_name=firstname, last_name=lastname)
+        user = User(username=username, email=email, first_name=firstname, last_name=lastname)
+        user.set_password(password)
         user.save()
         full_name = f"{firstname} {middlename} {lastname}".strip()
         profile = UserProfile.objects.create(
